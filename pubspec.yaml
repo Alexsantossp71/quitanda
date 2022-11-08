@@ -45,6 +45,8 @@ dependencies:
   get:
   dio:
   json_annotation:
+  freezed:
+  freezed_annotation:
   
 
 

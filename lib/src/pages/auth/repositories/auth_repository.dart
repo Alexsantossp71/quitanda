@@ -1,11 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:greengrocery/src/constants/endpoints.dart';
 import 'package:greengrocery/src/models/user_model.dart';
+import 'package:greengrocery/src/pages/auth/repositories/auth_errors.dart'
+    as authErrors;
+import 'package:greengrocery/src/pages/auth/result/auth_result.dart';
 import 'package:greengrocery/src/services/http_manager.dart';
 
 class AuthRepository {
   final HttpManager _httpManager = HttpManager();
-  Future signIn({required String email, required String password}) async {
+  Future<AuthResult> signIn(
+      {required String email, required String password}) async {
     final result = await _httpManager
         .restRequest(url: EndPoint.signin, method: HttpMethodos.post, body: {
       "email": email,
@@ -21,20 +25,13 @@ class AuthRepository {
       "token": "r:f5b4c100861717699e5709aecdf384c7"
     };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if (result['result'] == null) {
-      print('ESTA LOGADO');
-      print('Response status:');
-      print(result['result']);
-      result['result'] = oresult;
+    if (result['result'] != null) {
       final user = UserModel.fromJson(result['result']);
-      print(user);
-    } else {
-      // print('Response status: ${result.statusCode}');
-      print('Não LOGOU');
-      print(result['error']);
-      print(result['code']);
-      // result['result'] = oresult;
 
+      return AuthResult.success(user);
+    } else {
+      //authErrorString();
+      return AuthResult.error(authErrors.authErrorString(result['error']));
     }
   }
 }
