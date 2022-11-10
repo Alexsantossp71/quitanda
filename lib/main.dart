@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocery/src/pages/auth/controller/auth_controller.dart';
-import 'package:greengrocery/src/pages/auth/view/singInScreen.dart';
-import 'package:greengrocery/src/pages/splash/splash_screen.dart';
+//import 'package:greengrocery/src/pages/auth/view/singInScreen.dart';
+//import 'package:greengrocery/src/pages/splash/splash_screen.dart';
 import 'package:greengrocery/src/pages_routes/app_pages.dart';
 
 void main() {

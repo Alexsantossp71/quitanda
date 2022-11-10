@@ -10,14 +10,14 @@ import 'package:greengrocery/src/pages/splash/splash_screen.dart';
 
 abstract class AppPages {
   static final pages = <GetPage>[
-    GetPage(name: PagesRoutes.splashRoute, page: () => SplashScreen()),
+    GetPage(name: PagesRoutes.splashRoute, page: () => const SplashScreen()),
     GetPage(name: PagesRoutes.singInRoute, page: () => SingInScreen()),
     GetPage(name: PagesRoutes.singUpRoute, page: () => SingUpScreen()),
-    GetPage(name: PagesRoutes.baseRoute, page: () => BaseScreen()),
-    GetPage(name: PagesRoutes.homeRoute, page: () => HomeTab()),
-    GetPage(name: PagesRoutes.cartRoute, page: () => CartTab()),
-    GetPage(name: PagesRoutes.ordersRoute, page: () => OrdersTab()),
-    GetPage(name: PagesRoutes.profileRoute, page: () => ProfilePage()),
+    GetPage(name: PagesRoutes.baseRoute, page: () => const BaseScreen()),
+    GetPage(name: PagesRoutes.homeRoute, page: () => const HomeTab()),
+    GetPage(name: PagesRoutes.cartRoute, page: () => const CartTab()),
+    GetPage(name: PagesRoutes.ordersRoute, page: () => const OrdersTab()),
+    GetPage(name: PagesRoutes.profileRoute, page: () => const ProfilePage()),
   ];
 }
 

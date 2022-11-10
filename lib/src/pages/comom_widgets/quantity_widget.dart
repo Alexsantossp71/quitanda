@@ -7,18 +7,18 @@ class QuantityWidget extends StatelessWidget {
   final Function(int quantity) result;
   final bool isRemovable;
 
-  QuantityWidget({Key? key,
+  QuantityWidget({
+    Key? key,
     required this.value,
     required this.suffixText,
     required this.result,
-    this.isRemovable=false,
-  })
-      : super(key: key);
+    this.isRemovable = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(4),
+      padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(50),
@@ -31,10 +31,11 @@ class QuantityWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           _QuantityButton(
-            color: !isRemovable || value >1? Colors.grey : Colors.red,
-            icon: !isRemovable || value >1? Icons.remove : Icons.delete_forever,
+            color: !isRemovable || value > 1 ? Colors.grey : Colors.red,
+            icon:
+                !isRemovable || value > 1 ? Icons.remove : Icons.delete_forever,
             onPressed: () {
-              if(value == 1 && !isRemovable )return;
+              if (value == 1 && !isRemovable) return;
               int resultcount = value - 1;
               result(resultcount);
             },
@@ -43,7 +44,7 @@ class QuantityWidget extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Text(
               '$value $suffixText',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
           ),
           _QuantityButton(

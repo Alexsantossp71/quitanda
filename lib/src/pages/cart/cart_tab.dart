@@ -147,6 +147,7 @@ class _CartTabState extends State<CartTab> {
             content: const Text('Deseja realmente concluir o pedido?'),
             actions: [
               TextButton(
+                
                 style: TextButton.styleFrom(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16)
@@ -155,7 +156,7 @@ class _CartTabState extends State<CartTab> {
                   onPressed: (){
                     Navigator.of(context).pop(false);
                   },
-                  child: const Text('Não')),
+                  Widget: const Text('Não')),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(

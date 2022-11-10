@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocery/src/config/custom_colors.dart';
-import 'package:greengrocery/src/pages/auth/view/singInScreen.dart';
+//import 'package:greengrocery/src/pages/auth/view/singInScreen.dart';
 import 'package:greengrocery/src/pages/home/titulo_formatado.dart';
 import 'package:greengrocery/src/pages_routes/app_pages.dart';
 
@@ -43,10 +43,10 @@ class _SplashScreenState extends State<SplashScreen> {
               greenTitleColor: Colors.white,
               textSize: 40.0,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20.0,
             ),
-            CircularProgressIndicator(
+            const CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation(Colors.black),
             ),
           ],

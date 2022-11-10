@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:greengrocery/src/config/custom_colors.dart';
 import 'package:greengrocery/src/models/item_model.dart';
@@ -24,19 +23,14 @@ class _ProductScreenState extends State<ProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white.withAlpha(230),
-      body:
-
-      Stack(
+      body: Stack(
         children: [
-
-
-
           // conteúdo
           Column(
             children: [
               Expanded(
                 child: Hero(
-                  tag: widget.item.imgUrl,
+                    tag: widget.item.imgUrl,
                     child: Image.asset(widget.item.imgUrl)),
               ),
               Expanded(
@@ -44,7 +38,8 @@ class _ProductScreenState extends State<ProductScreen> {
                   padding: const EdgeInsets.all(32),
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: const BorderRadius.vertical(top: Radius.circular(50)),
+                      borderRadius:
+                          const BorderRadius.vertical(top: Radius.circular(50)),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.shade600,
@@ -62,20 +57,19 @@ class _ProductScreenState extends State<ProductScreen> {
                               widget.item.itemName,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 27),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 27),
                             ),
                           ),
                           QuantityWidget(
                             suffixText: widget.item.unit,
                             value: cartItemQuantity,
-                            result: (int quantity){
+                            result: (int quantity) {
                               setState(() {
                                 cartItemQuantity = quantity;
                               });
-
                             },
                           ),
-
                         ],
                       ),
 
@@ -86,20 +80,24 @@ class _ProductScreenState extends State<ProductScreen> {
                           utilsServices.priceToCurrency(widget.item.price),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23, color: CustomColors.customSwacthColor),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 23,
+                              color: CustomColors.customSwacthColor),
                         ),
                       ),
 
                       // Descrição
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical : 10),
+                          padding: const EdgeInsets.symmetric(vertical: 10),
                           child: SingleChildScrollView(
                             child: Text(
                               widget.item.description,
                               maxLines: 10,
                               overflow: TextOverflow.ellipsis,
-                              style: const TextStyle( height: 1.5, fontWeight: FontWeight.bold),
+                              style: const TextStyle(
+                                  height: 1.5, fontWeight: FontWeight.bold),
                             ),
                           ),
                         ),
@@ -110,20 +108,22 @@ class _ProductScreenState extends State<ProductScreen> {
                         child: SizedBox(
                           height: 55,
                           child: ElevatedButton.icon(
-                              onPressed: (){},
-                              label: const Text('Adicionar ao carrinho',
-                                  style:  TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                            onPressed: () {},
+                            label: const Text(
+                              'Adicionar ao carrinho',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
                               ),
-                            icon: const Icon(Icons.shopping_cart_outlined,
-                            color: Colors.white,),
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              )
                             ),
+                            icon: const Icon(
+                              Icons.shopping_cart_outlined,
+                              color: Colors.white,
+                            ),
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            )),
                           ),
                         ),
                       )
@@ -141,8 +141,8 @@ class _ProductScreenState extends State<ProductScreen> {
             top: 10,
             child: SafeArea(
                 child: IconButton(
-                    onPressed: ()=>Navigator.of(context).pop(),
-                    icon: Icon(Icons.arrow_back_ios))),
+                    onPressed: () => Navigator.of(context).pop(),
+                    icon: const Icon(Icons.arrow_back_ios))),
           ),
         ],
       ),

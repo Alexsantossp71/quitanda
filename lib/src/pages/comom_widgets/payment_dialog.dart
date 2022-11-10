@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:greengrocery/src/models/orders_model.dart';
 import 'package:greengrocery/src/services/utils_services.dart';
@@ -19,17 +17,17 @@ class PaymentDialog extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-         // conteúdo
+          // conteúdo
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 //TITULO
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5.0),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 5.0),
                   child: Text('Pagamento com Pix',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       )),
@@ -56,25 +54,26 @@ class PaymentDialog extends StatelessWidget {
 
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 3.0),
-                  child: Text('Total : ${utilsServices.priceToCurrency(order.total)}',
-                      style:
-                          const TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+                  child: Text(
+                      'Total : ${utilsServices.priceToCurrency(order.total)}',
+                      style: const TextStyle(
+                          fontSize: 17, fontWeight: FontWeight.bold)),
                 ),
                 // BOTÃO COPIA E COLA
 
                 OutlinedButton.icon(
-                  style: OutlinedButton.styleFrom(
-                    side: const BorderSide(
-                      width: 2,
-                      color: Colors.green,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    )
-                  ),
+                    style: OutlinedButton.styleFrom(
+                        side: const BorderSide(
+                          width: 2,
+                          color: Colors.green,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        )),
                     onPressed: () {},
                     icon: const Icon(
-                      Icons.copy, size: 15,
+                      Icons.copy,
+                      size: 15,
                     ),
                     label: const Text(
                       'Copiar código Pix',
@@ -89,14 +88,14 @@ class PaymentDialog extends StatelessWidget {
           ),
           //botão fechar
           Positioned(
-            top: 0,
-            right: 0,
-            child: IconButton(
-            onPressed: (){
-              Navigator.of(context).pop();
-            },
-            icon: const Icon(Icons.close),
-          ))
+              top: 0,
+              right: 0,
+              child: IconButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: const Icon(Icons.close),
+              ))
         ],
       ),
     );

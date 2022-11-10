@@ -156,7 +156,7 @@ class SingInScreen extends StatelessWidget {
                       alignment: Alignment.centerRight,
                       child: TextButton(
                           onPressed: () {},
-                          child: Text(
+                          Widget: Text(
                             'Esqueceu a senha?',
                             style: TextStyle(
                               color: CustomColors.customContrastColor,
@@ -208,7 +208,7 @@ class SingInScreen extends StatelessWidget {
                           //Navigator.of(context).push(MaterialPageRoute(builder:(c){ return SingUpScreen();}));
                           Get.toNamed(PagesRoutes.singUpRoute);
                         },
-                        child: const Text(
+                        Widget: const Text(
                           'Criar conta',
                           style: TextStyle(fontSize: 18),
                         ),

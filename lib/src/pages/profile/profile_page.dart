@@ -14,17 +14,17 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Perfil do Usuário'),
+        title: const Text('Perfil do Usuário'),
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.logout),
+            icon: const Icon(Icons.logout),
           ),
         ],
       ),
       body: ListView(
-        physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.fromLTRB(16, 32, 16, 16),
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.fromLTRB(16, 32, 16, 16),
         children: [
           //email
           CustomTextField(
@@ -61,9 +61,9 @@ class _ProfilePageState extends State<ProfilePage> {
               onPressed: () {
                 updatePassword();
               },
-              child: Text('Alterar Senha'),
+              Widget: const Text('Alterar Senha'),
               style: OutlinedButton.styleFrom(
-                  side: BorderSide(
+                  side: const BorderSide(
                     color: Colors.green,
                   ),
                   shape: RoundedRectangleBorder(
@@ -81,9 +81,8 @@ class _ProfilePageState extends State<ProfilePage> {
         context: context,
         builder: (context) {
           return Dialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20)
-            ),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             child: Stack(
               children: [
                 // cointeudo dialog
@@ -94,8 +93,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       // titulo
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 12),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 12),
                         child: Text(
                           'Atualizar Senha',
                           style: TextStyle(
@@ -127,29 +126,26 @@ class _ProfilePageState extends State<ProfilePage> {
                       SizedBox(
                         height: 50,
                         child: ElevatedButton(
-                            onPressed: (){},
-                            child: Text ('Confirmar'),
+                          onPressed: () {},
+                          child: const Text('Confirmar'),
                           style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16)
-                            )
-                          ),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16))),
                         ),
                       ),
-
                     ],
                   ),
                 ),
                 // icone de fechar
                 Positioned(
-                  top: 10,
-                   right: 10,
+                    top: 10,
+                    right: 10,
                     child: IconButton(
-                        onPressed: (){
-                          Navigator.of(context).pop();
-                        },
-                        icon: Icon(Icons.close), )
-                )
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: const Icon(Icons.close),
+                    ))
               ],
             ),
           );

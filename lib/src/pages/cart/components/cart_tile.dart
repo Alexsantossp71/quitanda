@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:greengrocery/src/config/custom_colors.dart';
-import 'package:greengrocery/src/models/app_data.dart';
+//import 'package:greengrocery/src/models/app_data.dart';
 import 'package:greengrocery/src/models/cart_item_model.dart';
 import 'package:greengrocery/src/pages/comom_widgets/quantity_widget.dart';
 import 'package:greengrocery/src/services/utils_services.dart';
