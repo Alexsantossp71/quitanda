@@ -61,7 +61,7 @@ class _ProfilePageState extends State<ProfilePage> {
               onPressed: () {
                 updatePassword();
               },
-              Widget: const Text('Alterar Senha'),
+              child: const Text('Alterar Senha'),
               style: OutlinedButton.styleFrom(
                   side: const BorderSide(
                     color: Colors.green,

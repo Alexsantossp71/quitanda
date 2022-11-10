@@ -156,7 +156,7 @@ class _CartTabState extends State<CartTab> {
                   onPressed: (){
                     Navigator.of(context).pop(false);
                   },
-                  Widget: const Text('Não')),
+                  child: const Text('Não')),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
