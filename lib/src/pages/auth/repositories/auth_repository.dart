@@ -8,12 +8,38 @@ import 'package:greengrocery/src/services/http_manager.dart';
 
 class AuthRepository {
   final HttpManager _httpManager = HttpManager();
+
+// TESTA SE TEM TOKEN
+
+  Future<AuthResult> validateToken(String token) async {
+    final result = await _httpManager.restRequest(
+        url: EndPoints.validadeToken,
+        method: HttpMethodos.post,
+        headers: {
+          'X-Parse-Session-Token': token,
+        }
+      );
+
+       if (result['result'] != null) {
+
+      final user = UserModel.fromJson(result['result']);
+
+      return AuthResult.success(user);
+    } else {
+
+
+      return AuthResult.error(authErrors.authErrorString(result['error']));
+    }
+  }
+
+  /// TESTA O SING IN
+
   Future<AuthResult> signIn(
       {required String email, required String password}) async {
     final result = await _httpManager
         .restRequest(url: EndPoints.signin, method: HttpMethodos.post, body: {
-      "email": email,
-      "password": password,
+      'email': email,
+      'password': password,
     });
 
     if (result['result'] != null) {
