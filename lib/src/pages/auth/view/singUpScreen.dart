@@ -134,6 +134,7 @@ class SingUpScreen extends StatelessWidget {
                               onPressed: authController.isLoading.value
                                   ? null
                                   : () {
+                                      FocusScope.of(context).unfocus();
                                       if (_formKey.currentState!.validate()) {
                                         _formKey.currentState!.save();
                                         authController.signUp();
