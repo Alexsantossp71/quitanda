@@ -17,12 +17,11 @@ class CategoryTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(30.0),
-
       onTap: onPressed,
       child: Align(
         alignment: Alignment.center,
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 6),
+          padding: const EdgeInsets.symmetric(horizontal: 6),
           decoration: BoxDecoration(
               color: isSelected
                   ? CustomColors.customSwacthColor
@@ -34,8 +33,9 @@ class CategoryTile extends StatelessWidget {
               category,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color:
-                    isSelected ? Colors.white : CustomColors.customContrastColor,
+                color: isSelected
+                    ? Colors.white
+                    : CustomColors.customContrastColor,
                 fontSize: isSelected ? 16 : 14,
               ),
             ),

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class UtilsServices {
 // CRUD LOCAL PARA SALVAR TOKEN
 
-  final storage = FlutterSecureStorage();
+  final storage = const FlutterSecureStorage();
 
 // SALVA TOKEN
 
