@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:greengrocery/src/pages/auth/controller/auth_controller.dart';
 import 'package:greengrocery/src/pages/comom_widgets/custom_text_field.dart';
 import 'package:greengrocery/src/models/app_data.dart' as appData;
 
@@ -10,6 +12,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  final authController = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +20,9 @@ class _ProfilePageState extends State<ProfilePage> {
         title: const Text('Perfil do Usuário'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              authController.signOut();
+            },
             icon: const Icon(Icons.logout),
           ),
         ],

@@ -9,6 +9,15 @@ import 'package:greengrocery/src/services/http_manager.dart';
 class AuthRepository {
   final HttpManager _httpManager = HttpManager();
 
+  AuthResult handleUserOrError(Map<dynamic, dynamic> result) {
+    if (result['result'] != null) {
+      final user = UserModel.fromJson(result['result']);
+      return AuthResult.success(user);
+    } else {
+      return AuthResult.error(authErrors.authErrorString(result['error']));
+    }
+  }
+
 // TESTA SE TEM TOKEN
 
   Future<AuthResult> validateToken(String token) async {
@@ -17,19 +26,9 @@ class AuthRepository {
         method: HttpMethodos.post,
         headers: {
           'X-Parse-Session-Token': token,
-        }
-      );
+        });
 
-       if (result['result'] != null) {
-
-      final user = UserModel.fromJson(result['result']);
-
-      return AuthResult.success(user);
-    } else {
-
-
-      return AuthResult.error(authErrors.authErrorString(result['error']));
-    }
+    return handleUserOrError(result);
   }
 
   /// TESTA O SING IN
@@ -42,21 +41,16 @@ class AuthRepository {
       'password': password,
     });
 
-    if (result['result'] != null) {
-      print('NO IF ');
+    return handleUserOrError(result);
+  }
 
-      final user = UserModel.fromJson(result['result']);
-      print('Signin funcionou');
-      print(result['result']);
+  Future<AuthResult> signUp(UserModel user) async {
+    final result = await _httpManager.restRequest(
+        url: EndPoints.signup,
+        method: HttpMethodos.post,
+        // o que vai enviar
+        body: user.toJson());
 
-      return AuthResult.success(user);
-    } else {
-      print('NO ELSE ');
-
-      print(result['error']);
-      print('Signin não funcionou 222');
-
-      return AuthResult.error(authErrors.authErrorString(result['error']));
-    }
+    return handleUserOrError(result);
   }
 }

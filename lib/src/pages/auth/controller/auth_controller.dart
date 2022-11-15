@@ -60,6 +60,33 @@ class AuthController extends GetxController {
     Get.offAllNamed(PagesRoutes.baseRoute);
   }
 
+  Future<void> signUp() async {
+    isLoading.value = true;
+    AuthResult result = await authRepository.signUp(user);
+    isLoading.value = false;
+    result.when(
+      success: (user) {
+        this.user = user;
+        saveTokenAndProceedToBase();
+      },
+      error: (message) {
+        utilsServices.showToast(
+          message: message,
+          isError: true,
+        );
+      },
+    );
+  }
+
+  Future<void> signOut() async {
+    // zerar user
+    user = UserModel();
+    // remover tokem localmente
+    await utilsServices.removeLocalData(key: StorageKeys.token);
+    // ir para signin
+    Get.offAllNamed(PagesRoutes.singInRoute);
+  }
+
   Future<void> signIn({
     required String email,
     required String password,
