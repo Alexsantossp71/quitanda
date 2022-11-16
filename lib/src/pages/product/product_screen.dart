@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:greengrocery/src/config/custom_colors.dart';
 import 'package:greengrocery/src/models/item_model.dart';
 import 'package:greengrocery/src/pages/comom_widgets/quantity_widget.dart';
-import 'package:greengrocery/src/pages/home/home_tab.dart';
+import 'package:greengrocery/src/pages/home/view/home_tab.dart';
 import 'package:greengrocery/src/services/utils_services.dart';
 
 class ProductScreen extends StatefulWidget {

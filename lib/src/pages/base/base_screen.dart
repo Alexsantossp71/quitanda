@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:greengrocery/src/pages/cart/cart_tab.dart';
-import 'package:greengrocery/src/pages/home/home_tab.dart';
+import 'package:greengrocery/src/pages/home/view/home_tab.dart';
 import 'package:greengrocery/src/pages/orders/orders_tab.dart';
 import 'package:greengrocery/src/pages/profile/profile_page.dart';
-
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({Key? key}) : super(key: key);
@@ -25,7 +24,7 @@ class _BaseScreenState extends State<BaseScreen> {
         controller: pageController,
         children: const [
           HomeTab(),
-         CartTab(),
+          CartTab(),
           OrdersTab(),
           ProfilePage(),
         ],
@@ -37,8 +36,10 @@ class _BaseScreenState extends State<BaseScreen> {
         onTap: (index) {
           setState(() {
             currentIndex = index;
-           // pageController.jumpToPage(index);
-            pageController.animateToPage(index, duration: const Duration( milliseconds: 700) , curve: Curves.ease);
+            // pageController.jumpToPage(index);
+            pageController.animateToPage(index,
+                duration: const Duration(milliseconds: 700),
+                curve: Curves.ease);
           });
         },
         type: BottomNavigationBarType.fixed,

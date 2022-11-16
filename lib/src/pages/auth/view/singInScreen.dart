@@ -7,7 +7,7 @@ import 'package:greengrocery/src/pages/auth/controller/auth_controller.dart';
 import 'package:greengrocery/src/pages/auth/view/components/forgot_password_dialog.dart';
 import 'package:greengrocery/src/pages/comom_widgets/custom_text_field.dart';
 
-import 'package:greengrocery/src/pages/home/titulo_formatado.dart';
+import 'package:greengrocery/src/pages/home/view/components/titulo_formatado.dart';
 import 'package:greengrocery/src/pages_routes/app_pages.dart';
 import 'package:greengrocery/src/services/utils_services.dart';
 

@@ -4,7 +4,7 @@ import 'package:greengrocery/src/pages/auth/view/singUpScreen.dart';
 import 'package:greengrocery/src/pages/base/base_screen.dart';
 import 'package:greengrocery/src/pages/cart/cart_tab.dart';
 import 'package:greengrocery/src/pages/home/binding/home_biding.dart';
-import 'package:greengrocery/src/pages/home/home_tab.dart';
+import 'package:greengrocery/src/pages/home/view/home_tab.dart';
 import 'package:greengrocery/src/pages/orders/orders_tab.dart';
 import 'package:greengrocery/src/pages/profile/profile_page.dart';
 import 'package:greengrocery/src/pages/splash/splash_screen.dart';
@@ -24,9 +24,11 @@ abstract class AppPages {
       page: () => SingUpScreen(),
     ),
     GetPage(
-      name: PagesRoutes.baseRoute,
-      page: () => const BaseScreen(),
-    ),
+        name: PagesRoutes.baseRoute,
+        page: () => const BaseScreen(),
+        bindings: [
+          HomeBinding(),
+        ]),
     GetPage(
       name: PagesRoutes.homeRoute,
       page: () => const HomeTab(),
@@ -40,11 +42,9 @@ abstract class AppPages {
       page: () => const OrdersTab(),
     ),
     GetPage(
-        name: PagesRoutes.profileRoute,
-        page: () => const ProfilePage(),
-        bindings: [
-          HomeBinding(),
-        ]),
+      name: PagesRoutes.profileRoute,
+      page: () => const ProfilePage(),
+    ),
   ];
 }
 

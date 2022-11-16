@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:greengrocery/src/config/custom_colors.dart';
 import 'package:greengrocery/src/pages/auth/controller/auth_controller.dart';
 
-import 'package:greengrocery/src/pages/home/titulo_formatado.dart';
+import 'package:greengrocery/src/pages/home/view/components/titulo_formatado.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
