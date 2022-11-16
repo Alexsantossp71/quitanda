@@ -109,4 +109,10 @@ class AuthController extends GetxController {
       //print(message);
     });
   }
+
+  Future<void> resetPassword(String email) async {
+    isLoading.value = true;
+    await authRepository.resetPassword(email);
+    isLoading.value = false;
+  }
 }

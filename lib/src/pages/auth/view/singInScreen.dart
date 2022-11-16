@@ -4,11 +4,12 @@ import 'package:get/get.dart';
 
 import 'package:greengrocery/src/config/custom_colors.dart';
 import 'package:greengrocery/src/pages/auth/controller/auth_controller.dart';
+import 'package:greengrocery/src/pages/auth/view/components/forgot_password_dialog.dart';
 import 'package:greengrocery/src/pages/comom_widgets/custom_text_field.dart';
-import 'package:greengrocery/src/pages/auth/view/singUpScreen.dart';
-import 'package:greengrocery/src/pages/base/base_screen.dart';
+
 import 'package:greengrocery/src/pages/home/titulo_formatado.dart';
 import 'package:greengrocery/src/pages_routes/app_pages.dart';
+import 'package:greengrocery/src/services/utils_services.dart';
 
 class SingInScreen extends StatelessWidget {
   SingInScreen({Key? key}) : super(key: key);
@@ -16,6 +17,7 @@ class SingInScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final utilsService = UtilsServices();
 
   @override
   Widget build(BuildContext context) {
@@ -155,7 +157,24 @@ class SingInScreen extends StatelessWidget {
                     Align(
                       alignment: Alignment.centerRight,
                       child: TextButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            final bool? result = await showDialog(
+                              context: context,
+                              builder: (_) {
+                                return ForgotPasswordDialog(
+                                    email: emailController.text);
+                              },
+                            );
+                            Focus.of(context).unfocus();
+                            print(result);
+                            if (result!) {
+                              utilsService.showToast(
+                                  message:
+                                      'Um link de recuperação foi enviado ao seu e-mail');
+                            } else {
+                              utilsService.showToast(message: 'caiu no else');
+                            }
+                          },
                           child: Text(
                             'Esqueceu a senha?',
                             style: TextStyle(

@@ -7,6 +7,7 @@ import 'package:greengrocery/src/pages/auth/result/auth_result.dart';
 import 'package:greengrocery/src/services/http_manager.dart';
 
 class AuthRepository {
+  // valida token
   final HttpManager _httpManager = HttpManager();
 
   AuthResult handleUserOrError(Map<dynamic, dynamic> result) {
@@ -52,5 +53,15 @@ class AuthRepository {
         body: user.toJson());
 
     return handleUserOrError(result);
+  }
+
+  // reseta a senha
+
+  Future<void> resetPassword(String email) async {
+    await _httpManager.restRequest(
+        url: EndPoints.resetPassword,
+        method: HttpMethodos.post,
+        // o que vai enviar
+        body: {'email': email});
   }
 }
