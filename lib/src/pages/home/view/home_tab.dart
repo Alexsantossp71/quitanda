@@ -21,8 +21,6 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-  String selectedCategory = 'Frutas';
-
   GlobalKey<CartIconKey> globalKeyCartItems = GlobalKey<CartIconKey>();
 
   late Function(GlobalKey) runAddToCardAnimation;
@@ -33,18 +31,10 @@ class _HomeTabState extends State<HomeTab> {
 
   final UtilsServices utilsServices = UtilsServices();
 
-  bool isLoading = true;
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
-    Future.delayed(const Duration(seconds: 2), () {
-      setState(() {
-        isLoading = false;
-      });
-    });
   }
 
   @override
@@ -123,87 +113,90 @@ class _HomeTabState extends State<HomeTab> {
             ),
 
             // LISTA CATEGORIAS
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: SizedBox(
-                height: 40,
-                child: !isLoading
-                    ? ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (_, index) {
-                          return CategoryTile(
-                            category: appData.categories[index],
-                            onPressed: () {
-                              setState(() {
-                                selectedCategory = appData.categories[index];
-                              });
-                            },
-                            isSelected:
-                                appData.categories[index] == selectedCategory,
-                          );
-                        },
-                        separatorBuilder: (_, index) {
-                          return const SizedBox(
-                            width: 10,
-                          );
-                        },
-                        itemCount: appData.categories.length)
-                    : ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: List.generate(
-                          10,
-                          (index) => Container(
-                            margin: EdgeInsets.only(right: 10),
-                            alignment: Alignment.center,
-                            child: CustomShimmer(
-                              height: 25,
-                              width: 80,
-                              borderRadius: BorderRadius.circular(20.0),
+            GetBuilder<HomeController>(builder: (controller) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: SizedBox(
+                  height: 40,
+                  child: !controller.isLoading
+                      ? ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (_, index) {
+                            return CategoryTile(
+                              category: controller.allCategories[index].title,
+                              onPressed: () {
+                                controller.selectCategory(
+                                    controller.allCategories[index]);
+                              },
+                              isSelected: controller.allCategories[index] ==
+                                  controller.currentCategory,
+                            );
+                          },
+                          separatorBuilder: (_, index) {
+                            return const SizedBox(
+                              width: 10,
+                            );
+                          },
+                          itemCount: controller.allCategories.length)
+                      : ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: List.generate(
+                            10,
+                            (index) => Container(
+                              margin: EdgeInsets.only(right: 10),
+                              alignment: Alignment.center,
+                              child: CustomShimmer(
+                                height: 25,
+                                width: 80,
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-              ),
-            ),
+                ),
+              );
+            }),
 
             // GRID DE PRODUTOS
-            Expanded(
-              child: !isLoading
-                  ? GridView.builder(
-                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                      physics: const BouncingScrollPhysics(),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
+            GetBuilder<HomeController>(builder: (controller) {
+              return Expanded(
+                child: !controller.isLoading
+                    ? GridView.builder(
+                        padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                        physics: const BouncingScrollPhysics(),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 10,
+                          crossAxisSpacing: 10,
+                          childAspectRatio: 9 / 11.5,
+                        ),
+                        itemCount: appData.items.length,
+                        itemBuilder: (_, index) {
+                          return ItemTile(
+                            item: appData.items[index],
+                            cartAnimationMethod: itemSelectedCartAnimations,
+                          );
+                        },
+                      )
+                    : GridView.count(
+                        padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                        physics: const BouncingScrollPhysics(),
                         crossAxisCount: 2,
                         mainAxisSpacing: 10,
                         crossAxisSpacing: 10,
                         childAspectRatio: 9 / 11.5,
-                      ),
-                      itemCount: appData.items.length,
-                      itemBuilder: (_, index) {
-                        return ItemTile(
-                          item: appData.items[index],
-                          cartAnimationMethod: itemSelectedCartAnimations,
-                        );
-                      },
-                    )
-                  : GridView.count(
-                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                      physics: const BouncingScrollPhysics(),
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                      childAspectRatio: 9 / 11.5,
-                      children: List.generate(
-                        10,
-                        (index) => CustomShimmer(
-                          height: double.infinity,
-                          width: double.infinity,
-                          borderRadius: BorderRadius.circular(20.0),
+                        children: List.generate(
+                          10,
+                          (index) => CustomShimmer(
+                            height: double.infinity,
+                            width: double.infinity,
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
                         ),
                       ),
-                    ),
-            ),
+              );
+            })
           ],
         ),
       ),

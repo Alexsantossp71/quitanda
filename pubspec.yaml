@@ -41,7 +41,7 @@ dependencies:
   intl:
   add_to_cart_animation:
   qr_flutter:
-  fluttertoast:
+  fluttertoast: 8.0.9
   shimmer:
   get:
   dio:
