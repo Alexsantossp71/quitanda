@@ -21,6 +21,8 @@ class HomeController extends GetxController {
     return currentCategory!.pagination * itemsPerPage > allProducts.length;
   }
 
+  RxString searchTitle = ''.obs;
+
   void setLoading(bool value, {bool isProduct = false}) {
     if (!isProduct) {
       isCategoryLoading = value;
@@ -33,6 +35,14 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    debounce(
+      searchTitle,
+      (_) {
+        print('ola buscador');
+        update();
+      },
+      time: const Duration(milliseconds: 600),
+    );
     getAllCategories();
   }
 
@@ -67,6 +77,42 @@ class HomeController extends GetxController {
   } //fim do getall categories
 
 /////////////////////////////////////////////////////////////////////
+// buscando produtos
+
+  void filterByTitle() {
+    if (searchTitle.value.isEmpty) {
+      allCategories.removeAt(0);
+    } else {
+// apagar todos osprodutos das categorias
+      for (var category in allCategories) {
+        currentCategory!.items.clear();
+        category.pagination = 0;
+      }
+
+      CategoryModel? c = allCategories.firstWhereOrNull((cat) => cat.id == '');
+
+      if (c == null) {
+        //criar uma nova categoria com todos
+        final allProductsCategory = CategoryModel(
+          title: 'All',
+          id: '',
+          items: [],
+          pagination: 0,
+        );
+
+        allCategories.insert(0, allProductsCategory);
+      } else {
+        c.items.clear();
+        c.pagination = 0;
+      }
+    }
+
+    currentCategory = allCategories.first;
+    update();
+    getAllProducts();
+  }
+
+  ///
 
   void loadMoreProducts() {
     currentCategory!.pagination++;
