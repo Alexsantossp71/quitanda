@@ -23,14 +23,17 @@ class _ItemTileState extends State<ItemTile> {
 
   final UtilsServices utilsServices = UtilsServices();
 
-  IconData tileIcon =    Icons.add_shopping_cart_outlined; //Icons.check;
+  IconData tileIcon = Icons.add_shopping_cart_outlined; //Icons.check;
 
-  Future<void> switchIcon() async{
-    setState(() => tileIcon =Icons.check,);
+  Future<void> switchIcon() async {
+    setState(
+      () => tileIcon = Icons.check,
+    );
     print('ESTOU DENTRO DO SWITCH');
-    await Future.delayed(const Duration(seconds: 3) );
-    setState(() => tileIcon =Icons.add_shopping_cart_outlined,);
-
+    await Future.delayed(const Duration(seconds: 3));
+    setState(
+      () => tileIcon = Icons.add_shopping_cart_outlined,
+    );
   }
 
   @override
@@ -64,7 +67,7 @@ class _ItemTileState extends State<ItemTile> {
                     child: Hero(
                       tag: widget.item.imgUrl,
                       child: Container(
-                        child: Image.asset(
+                        child: Image.network(
                           widget.item.imgUrl,
                         ),
                         key: imageGk,
@@ -74,7 +77,8 @@ class _ItemTileState extends State<ItemTile> {
                   // NOME
                   Text(
                     widget.item.itemName,
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   // PREÇO - UNIDADE
                   Row(
@@ -107,12 +111,13 @@ class _ItemTileState extends State<ItemTile> {
             right: 4,
             child: ClipRRect(
               borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(15),
-              topRight: Radius.circular(20),),
+                bottomLeft: Radius.circular(15),
+                topRight: Radius.circular(20),
+              ),
               child: Material(
                 child: InkWell(
                   onTap: () {
-                   // print('CLICOU PARA O CARRINHO');
+                    // print('CLICOU PARA O CARRINHO');
                     switchIcon();
 
                     widget.cartAnimationMethod(imageGk);
@@ -121,11 +126,10 @@ class _ItemTileState extends State<ItemTile> {
                     height: 40,
                     width: 35,
                     decoration: BoxDecoration(
-                        color: CustomColors.customSwacthColor,
-
+                      color: CustomColors.customSwacthColor,
                     ),
                     child: Icon(
-                     // Icons.shopping_cart_outlined,
+                      // Icons.shopping_cart_outlined,
                       tileIcon,
 
                       color: Colors.white,

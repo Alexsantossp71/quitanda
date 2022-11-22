@@ -9,14 +9,24 @@ const int itemsPerPage = 6;
 
 class HomeController extends GetxController {
   HomeRepository homeRepository = HomeRepository();
-  bool isLoading = false;
+  bool isCategoryLoading = false;
+  bool isProductLoading = true;
   List<CategoryModel> allCategories = [];
-  List<ItemModel> allProducts = [];
+  //List<ItemModel> allProducts = [];
   UtilsServices utilsServices = UtilsServices();
   CategoryModel? currentCategory;
+  List<ItemModel> get allProducts => currentCategory?.items ?? [];
+  bool get isLastPage {
+    if (currentCategory!.items.length < itemsPerPage) return true;
+    return currentCategory!.pagination * itemsPerPage > allProducts.length;
+  }
 
-  void setLoading(bool value) {
-    isLoading = value;
+  void setLoading(bool value, {bool isProduct = false}) {
+    if (!isProduct) {
+      isCategoryLoading = value;
+    } else {
+      isProductLoading = value;
+    }
     update();
   }
 
@@ -29,16 +39,17 @@ class HomeController extends GetxController {
   void selectCategory(CategoryModel category) {
     currentCategory = category;
     update();
+    if (currentCategory!.items.isNotEmpty) return;
     getAllProducts();
   }
 
   Future<void> getAllCategories() async {
-    setLoading(true);
+    setLoading(true, isProduct: true);
 
     HomeResult<CategoryModel> homeResult =
         await homeRepository.getAllCategories();
 
-    setLoading(false);
+    setLoading(false, isProduct: true);
     homeResult.when(
       success: (data) {
         allCategories.assignAll(data);
@@ -55,8 +66,17 @@ class HomeController extends GetxController {
     );
   } //fim do getall categories
 
-  Future<void> getAllProducts() async {
-    setLoading(true);
+/////////////////////////////////////////////////////////////////////
+
+  void loadMoreProducts() {
+    currentCategory!.pagination++;
+    getAllProducts();
+  }
+
+  Future<void> getAllProducts({bool canLoad = true}) async {
+    if (canLoad) {
+      setLoading(true);
+    }
 
     Map<String, dynamic> body = {
       'page': currentCategory!.pagination,
@@ -69,15 +89,8 @@ class HomeController extends GetxController {
     setLoading(false);
     result.when(
       success: (data) {
-        //allProducts.assignAll(data);
-        //if (allProducts.isEmpty) return;
-        //selectProduct(allProducts.first);
-
-        print(data);
-        print(' O pagination');
-        print(currentCategory!.pagination);
-        print('O ID');
-        print(currentCategory!.id);
+        currentCategory!.items.addAll(data);
+        print(currentCategory!.items);
       },
       error: (message) {
         print('TENTANDO IMPRIMIR O ERRO');
@@ -88,5 +101,4 @@ class HomeController extends GetxController {
       },
     );
   } // fim do getallproducts
-
 } //fim da class
