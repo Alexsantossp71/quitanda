@@ -3,7 +3,8 @@ import 'package:greengrocery/src/pages/auth/view/singInScreen.dart';
 import 'package:greengrocery/src/pages/auth/view/singUpScreen.dart';
 import 'package:greengrocery/src/pages/base/base_screen.dart';
 import 'package:greengrocery/src/pages/base/binding/navigation_binding.dart';
-import 'package:greengrocery/src/pages/cart/cart_tab.dart';
+import 'package:greengrocery/src/pages/cart/binding/cart_binding.dart';
+import 'package:greengrocery/src/pages/cart/view/cart_tab.dart';
 import 'package:greengrocery/src/pages/home/binding/home_biding.dart';
 import 'package:greengrocery/src/pages/home/view/home_tab.dart';
 import 'package:greengrocery/src/pages/orders/orders_tab.dart';
@@ -30,6 +31,7 @@ abstract class AppPages {
         bindings: [
           NavigationBinding(),
           HomeBinding(),
+          CartBinding(),
         ]),
     GetPage(
       name: PagesRoutes.homeRoute,
