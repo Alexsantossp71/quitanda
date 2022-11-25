@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:greengrocery/src/pages/auth/view/singInScreen.dart';
 import 'package:greengrocery/src/pages/auth/view/singUpScreen.dart';
 import 'package:greengrocery/src/pages/base/base_screen.dart';
+import 'package:greengrocery/src/pages/base/binding/navigation_binding.dart';
 import 'package:greengrocery/src/pages/cart/cart_tab.dart';
 import 'package:greengrocery/src/pages/home/binding/home_biding.dart';
 import 'package:greengrocery/src/pages/home/view/home_tab.dart';
@@ -27,6 +28,7 @@ abstract class AppPages {
         name: PagesRoutes.baseRoute,
         page: () => const BaseScreen(),
         bindings: [
+          NavigationBinding(),
           HomeBinding(),
         ]),
     GetPage(

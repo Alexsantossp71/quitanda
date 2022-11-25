@@ -38,8 +38,7 @@ class HomeController extends GetxController {
     debounce(
       searchTitle,
       (_) {
-        print('ola buscador');
-        update();
+        filterByTitle();
       },
       time: const Duration(milliseconds: 600),
     );
@@ -94,7 +93,7 @@ class HomeController extends GetxController {
       if (c == null) {
         //criar uma nova categoria com todos
         final allProductsCategory = CategoryModel(
-          title: 'All',
+          title: 'Todos',
           id: '',
           items: [],
           pagination: 0,
@@ -129,6 +128,16 @@ class HomeController extends GetxController {
       'categoryId': currentCategory!.id,
       'itensPerPage': itemsPerPage,
     };
+
+    // metodo que procura pelo nome o produto
+
+    if (searchTitle.value.isNotEmpty) {
+      body['title'] = searchTitle.value;
+
+      if (currentCategory!.id == '') {
+        body.remove('categoryId');
+      }
+    }
 
     HomeResult<ItemModel> result = await homeRepository.getAllProducts(body);
 

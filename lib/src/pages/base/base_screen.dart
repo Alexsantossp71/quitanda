@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:greengrocery/src/pages/base/controller/navigation_controller.dart';
 import 'package:greengrocery/src/pages/cart/cart_tab.dart';
 import 'package:greengrocery/src/pages/home/view/home_tab.dart';
 import 'package:greengrocery/src/pages/orders/orders_tab.dart';
@@ -12,16 +14,14 @@ class BaseScreen extends StatefulWidget {
 }
 
 class _BaseScreenState extends State<BaseScreen> {
-  int currentIndex = 0;
-
-  final pageController = PageController();
+  final navigationController = Get.find<NavigationController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
         physics: const NeverScrollableScrollPhysics(),
-        controller: pageController,
+        controller: navigationController.pageController,
         children: const [
           HomeTab(),
           CartTab(),
@@ -32,15 +32,16 @@ class _BaseScreenState extends State<BaseScreen> {
 
       // Barra de navegação inferior
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
+        currentIndex: navigationController.currentIndex,
         onTap: (index) {
-          setState(() {
-            currentIndex = index;
-            // pageController.jumpToPage(index);
-            pageController.animateToPage(index,
+          navigationController.navigationPageView(index);
+          // pageController.jumpToPage(index);
+          /* pageController.animateToPage(index,
                 duration: const Duration(milliseconds: 700),
                 curve: Curves.ease);
-          });
+          
+          );
+          */
         },
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.white,
