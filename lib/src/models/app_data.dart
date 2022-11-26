@@ -81,9 +81,9 @@ List<String> categories = [
 ];
 
 List<CartItemModel> cartItems = [
-  CartItemModel(item: apple, quantity: 2),
-  CartItemModel(item: mango, quantity: 1),
-  CartItemModel(item: guava, quantity: 3),
+  // CartItemModel(item: apple, quantity: 2),
+  // CartItemModel(item: mango, quantity: 1),
+  // CartItemModel(item: guava, quantity: 3),
 ];
 
 UserModel user = UserModel(
@@ -96,7 +96,7 @@ UserModel user = UserModel(
 
 List<OrderModel> orders = [
   // Pedido 01
-  OrderModel(
+  /* OrderModel(
     copyAndPaste: 'q1w2e3r4t5y6',
     createdDateTime: DateTime.parse(
       '2022-12-12 10:00:10.458',
@@ -108,11 +108,11 @@ List<OrderModel> orders = [
     status: 'pending_payment',
     total: 11.0,
     items: [
-      CartItemModel(
+    //  CartItemModel(
         item: apple,
         quantity: 2,
       ),
-      CartItemModel(
+    //  CartItemModel(
         item: mango,
         quantity: 2,
       ),
@@ -120,7 +120,7 @@ List<OrderModel> orders = [
   ),
 
   // Pedido 02
-  OrderModel(
+ OrderModel(
     copyAndPaste: 'q1w2e3r4t5y6',
     createdDateTime: DateTime.parse(
       '2022-06-08 10:00:10.458',
@@ -137,5 +137,5 @@ List<OrderModel> orders = [
         quantity: 1,
       ),
     ],
-  ),
+  ),*/
 ];
