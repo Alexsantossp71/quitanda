@@ -6,14 +6,13 @@ import 'package:greengrocery/src/pages/comom_widgets/quantity_widget.dart';
 import 'package:greengrocery/src/services/utils_services.dart';
 
 class CartTile extends StatefulWidget {
-
   final CartItemModel cartItem;
   final Function(int) updatedQuantity;
-   CartTile({Key? key,
-     required this.cartItem,
-     required this.updatedQuantity,
-   })
-       : super(key: key);
+  CartTile({
+    Key? key,
+    required this.cartItem,
+    required this.updatedQuantity,
+  }) : super(key: key);
 
   @override
   State<CartTile> createState() => _CartTileState();
@@ -31,30 +30,31 @@ class _CartTileState extends State<CartTile> {
       ),
       child: ListTile(
         // IMAGEM
-            leading: Image.asset(
-                widget.cartItem.item.imgUrl,
-                height: 60,
-                width: 60,),
+        leading: Image.network(
+          widget.cartItem.item.imgUrl,
+          height: 60,
+          width: 60,
+        ),
         // NOME
-        title: Text(widget.cartItem.item.itemName,
-        style: TextStyle(
+        title: Text(
+          widget.cartItem.item.itemName,
+          style: TextStyle(
             fontWeight: FontWeight.bold,
-
-        ),),
+          ),
+        ),
         //TOTAL DO ITEM
         subtitle: Text(
           utilsServices.priceToCurrency(widget.cartItem.totalPrice()),
-        style: TextStyle(
+          style: TextStyle(
             fontWeight: FontWeight.bold,
-          color: CustomColors.customSwacthColor,
-        ),),
+            color: CustomColors.customSwacthColor,
+          ),
+        ),
         // BOTÃO DE QUANTIDADE
         trailing: QuantityWidget(
           suffixText: widget.cartItem.item.unit,
           value: widget.cartItem.quantity,
-            result: widget.updatedQuantity,
-
-
+          result: widget.updatedQuantity,
           isRemovable: true,
         ),
       ),

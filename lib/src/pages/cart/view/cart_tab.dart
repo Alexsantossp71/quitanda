@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:greengrocery/src/config/custom_colors.dart';
 import 'package:greengrocery/src/models/cart_item_model.dart';
+import 'package:greengrocery/src/pages/cart/controller/cart_controller.dart';
 import 'package:greengrocery/src/pages/cart/view/components/cart_tile.dart';
 import 'package:greengrocery/src/pages/comom_widgets/payment_dialog.dart';
 import 'package:greengrocery/src/services/utils_services.dart';
@@ -16,20 +18,21 @@ class CartTab extends StatefulWidget {
 class _CartTabState extends State<CartTab> {
   final UtilsServices utilsServices = UtilsServices();
 
-  void removeItemFromCart(CartItemModel cartItem) {
+  /* void removeItemFromCart(CartItemModel cartItem) {
     setState(() {
       appData.cartItems.remove(cartItem);
       utilsServices.showToast(
           message: "${cartItem.item.itemName} removido(a) do carrinho");
     });
-  }
+  }*/
 
   double cartTotalPrice() {
     double total = 0;
-    for (var item in appData.cartItems) {
+    /*  for (var item in appData.cartItems) {
       total += item.totalPrice();
     }
-    return total;
+    return total;*/
+    return 0;
   }
 
   @override
@@ -42,22 +45,26 @@ class _CartTabState extends State<CartTab> {
           // LISTA DE ITENS DO CARRINHO
           Column(children: [
         Expanded(
-          child: ListView.builder(
-            itemCount: appData.cartItems.length,
-            itemBuilder: (_, index) {
-              final cartItem = appData.cartItems[index];
+          child: GetBuilder<CartController>(
+            builder: (controller) {
+              return ListView.builder(
+                itemCount: controller.cartItems.length,
+                itemBuilder: (_, index) {
+                  final cartItem = controller.cartItems[index];
 
-              return CartTile(
-                cartItem: appData.cartItems[index],
-                updatedQuantity: (qtd) {
-                  // Chamando nosso novo atributo que é uma função que recebe a quantidade
-                  if (qtd == 0) {
-                    removeItemFromCart(appData.cartItems[
-                        index]); // Removendo do carrinho passando o item do carrinho que o nosso ItemBuilder fornece
-                  } else {
-                    setState(() => cartItem.quantity =
-                        qtd); // Atualizando a quantidade do produto
-                  }
+                  return CartTile(
+                    cartItem: controller.cartItems[index],
+                    updatedQuantity: (qtd) {
+                      // Chamando nosso novo atributo que é uma função que recebe a quantidade
+                      /* if (qtd == 0) {
+                        removeItemFromCart(controller.cartItems[
+                            index]); // Removendo do carrinho passando o item do carrinho que o nosso ItemBuilder fornece
+                      } else {
+                        setState(() => cartItem.quantity =
+                            qtd); // Atualizando a quantidade do produto
+                      }*/
+                    },
+                  );
                 },
               );
             },
@@ -90,13 +97,18 @@ class _CartTabState extends State<CartTab> {
               ),
               Padding(
                 padding: const EdgeInsets.all(6.0),
-                child: Text(
-                  utilsServices.priceToCurrency(cartTotalPrice()),
-                  style: TextStyle(
-                    color: CustomColors.customSwacthColor,
-                    fontSize: 23,
-                    fontWeight: FontWeight.bold,
-                  ),
+                child: GetBuilder<CartController>(
+                  builder: (controller) {
+                    return Text(
+                      utilsServices
+                          .priceToCurrency(controller.cartTotalPrice()),
+                      style: TextStyle(
+                        color: CustomColors.customSwacthColor,
+                        fontSize: 23,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  },
                 ),
               ),
               SizedBox(
