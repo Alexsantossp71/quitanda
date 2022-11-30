@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocery/src/config/custom_colors.dart';
 import 'package:greengrocery/src/models/item_model.dart';
+import 'package:greengrocery/src/pages/cart/controller/cart_controller.dart';
 import 'package:greengrocery/src/pages/product/product_screen.dart';
 import 'package:greengrocery/src/pages_routes/app_pages.dart';
 import 'package:greengrocery/src/services/utils_services.dart';
@@ -24,6 +25,7 @@ class _ItemTileState extends State<ItemTile> {
   final GlobalKey imageGk = GlobalKey();
 
   final UtilsServices utilsServices = UtilsServices();
+  final cartController = Get.find<CartController>();
 
   IconData tileIcon = Icons.add_shopping_cart_outlined; //Icons.check;
 
@@ -117,6 +119,7 @@ class _ItemTileState extends State<ItemTile> {
                   onTap: () {
                     // print('CLICOU PARA O CARRINHO');
                     switchIcon();
+                    cartController.addItemToCart(item: widget.item);
 
                     widget.cartAnimationMethod(imageGk);
                   },

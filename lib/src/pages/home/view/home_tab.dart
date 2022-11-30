@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocery/src/config/custom_colors.dart';
 import 'package:greengrocery/src/models/app_data.dart' as appData;
+import 'package:greengrocery/src/pages/base/controller/navigation_controller.dart';
+import 'package:greengrocery/src/pages/cart/controller/cart_controller.dart';
 import 'package:greengrocery/src/pages/comom_widgets/custom_shimmer.dart';
 
 import 'package:greengrocery/src/pages/home/view/components/category_tile.dart';
@@ -31,7 +33,7 @@ class _HomeTabState extends State<HomeTab> {
 
   final UtilsServices utilsServices = UtilsServices();
   final TextEditingController searchControler = TextEditingController();
-
+  final navigationController = Get.find<NavigationController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,19 +50,31 @@ class _HomeTabState extends State<HomeTab> {
               top: 15.0,
               right: 15.0,
             ),
-            child: GestureDetector(
-              onTap: () {},
-              child: Badge(
-                badgeColor: CustomColors.customContrastColor,
-                badgeContent: const Text('2'),
-                child: AddToCartIcon(
-                  key: globalKeyCartItems,
-                  icon: Icon(
-                    Icons.shopping_cart,
-                    color: CustomColors.customSwacthColor,
+            child: GetBuilder<CartController>(
+              builder: (controller) {
+                return GestureDetector(
+                  onTap: () {
+                    navigationController
+                        .navigationPageView(NavigationTabs.cart);
+                  },
+                  child: Badge(
+                    badgeColor: CustomColors.customContrastColor,
+                    badgeContent: Text(
+                        // este mostra quantos produtos tem no carrinho
+                        controller.cartItems.length.toString()
+                        // este mostra quants unidades tem no carrinho
+                        // controller.getCartTotalItems().toString()
+                        ),
+                    child: AddToCartIcon(
+                      key: globalKeyCartItems,
+                      icon: Icon(
+                        Icons.shopping_cart,
+                        color: CustomColors.customSwacthColor,
+                      ),
+                    ),
                   ),
-                ),
-              ),
+                );
+              },
             ),
           ),
         ],
@@ -128,7 +142,7 @@ class _HomeTabState extends State<HomeTab> {
                 },
               ),
             ),
-
+//////////////////////////////////////////////////////////////////////////////
             // LISTA CATEGORIAS
             GetBuilder<HomeController>(builder: (controller) {
               return Padding(
