@@ -9,9 +9,11 @@ import 'package:greengrocery/src/pages/home/view/home_tab.dart';
 import 'package:greengrocery/src/services/utils_services.dart';
 
 class ProductScreen extends StatefulWidget {
-  ProductScreen({Key? key, required this.item}) : super(key: key);
+  ProductScreen({
+    Key? key,
+  }) : super(key: key);
 
-  final ItemModel item;
+  final ItemModel item = Get.arguments;
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();

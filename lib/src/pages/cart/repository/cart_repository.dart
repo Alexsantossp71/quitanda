@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:greengrocery/src/constants/endpoints.dart';
 import 'package:greengrocery/src/models/cart_item_model.dart';
 import 'package:greengrocery/src/models/item_model.dart';
@@ -56,5 +57,24 @@ class CartRepository {
       //Errou
       return CartResult.error('Erro ao addicionar produtos.');
     }
+  }
+
+  Future<bool> changeItemQuantity({
+    required String token,
+    required String cartItemId,
+    required int quantity,
+  }) async {
+    final result = await _httpManager.restRequest(
+      url: EndPoints.changeItemQuantity,
+      method: HttpMethodos.post,
+      body: {
+        'cartItemId': cartItemId,
+        'quantity': quantity,
+      },
+      headers: {
+        'X-Parse-Session-Token': token,
+      },
+    );
+    return result.isEmpty;
   }
 }

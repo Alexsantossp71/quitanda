@@ -8,6 +8,7 @@ import 'package:greengrocery/src/pages/cart/view/cart_tab.dart';
 import 'package:greengrocery/src/pages/home/binding/home_biding.dart';
 import 'package:greengrocery/src/pages/home/view/home_tab.dart';
 import 'package:greengrocery/src/pages/orders/orders_tab.dart';
+import 'package:greengrocery/src/pages/product/product_screen.dart';
 import 'package:greengrocery/src/pages/profile/profile_page.dart';
 import 'package:greengrocery/src/pages/splash/splash_screen.dart';
 
@@ -16,6 +17,10 @@ abstract class AppPages {
     GetPage(
       name: PagesRoutes.splashRoute,
       page: () => const SplashScreen(),
+    ),
+    GetPage(
+      name: PagesRoutes.productRoute,
+      page: () => ProductScreen(),
     ),
     GetPage(
       name: PagesRoutes.singInRoute,
@@ -61,4 +66,5 @@ abstract class PagesRoutes {
   static const String cartRoute = '/cart';
   static const String ordersRoute = '/orders';
   static const String profileRoute = '/profile';
+  static const String productRoute = '/product';
 }
