@@ -39,11 +39,15 @@ class CartController extends GetxController {
       cartItemId: item.id,
       quantity: quantity,
     );
+    print("Este é o item recebido para inclusão no carrinho  ");
+    print('Adicionou produto ${item.id}');
 
     if (result) {
       if (quantity == 0) {
+        print('NÃO FOI NO FIRST WHERE');
         cartItems.removeWhere((cartItem) => cartItem.id == item.id);
       } else {
+        print('VEIO NO FIRST WHERE');
         cartItems.firstWhere((cartItem) => cartItem.id == item.id).quantity =
             quantity;
       }
@@ -78,7 +82,11 @@ class CartController extends GetxController {
   }
 
   int getItemIndex(ItemModel item) {
-    return cartItems.indexWhere((itemInList) => itemInList.id == item.id);
+    print('CONFERINDO O WHERE $cartItems');
+    int achei =
+        cartItems.indexWhere((itemInList) => itemInList.item.id == item.id);
+    print('Este é o achei $achei');
+    return cartItems.indexWhere((itemInList) => itemInList.item.id == item.id);
   }
 
   Future<void> addItemToCart({
@@ -87,11 +95,13 @@ class CartController extends GetxController {
   }) async {
     int itemIndex = getItemIndex(item);
     if (itemIndex >= 0) {
-      final product = cartItems[itemIndex];
+      print('ITEM JÁ EXISTE ${item.id}');
 
+      final product = cartItems[itemIndex];
       await changeItemQuantity(item: product, quantity: quantity);
       //já existe
     } else {
+      print('NÃO EXISTE O ITEM NA LISTA ${item.id}');
       final CartResult<String> result = await cartRepository.addItemToCart(
         userId: authController.user.id!,
         token: authController.user.token!,

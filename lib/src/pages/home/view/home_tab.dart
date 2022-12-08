@@ -187,7 +187,7 @@ class _HomeTabState extends State<HomeTab> {
                 ),
               );
             }),
-
+///////////////////  GRID DE PRODUTOS /////////////////////////
             // GRID DE PRODUTOS
             GetBuilder<HomeController>(builder: (controller) {
               return Expanded(
@@ -211,6 +211,8 @@ class _HomeTabState extends State<HomeTab> {
                                 !controller.isLastPage) {
                               controller.loadMoreProducts();
                             }
+///////////////////////////////////////////////////////////////////////////
+                            // ITEM  TILE QUE MOSTRA CADA PRODUTO
                             return ItemTile(
                               item: controller.allProducts[index],
                               cartAnimationMethod: itemSelectedCartAnimations,

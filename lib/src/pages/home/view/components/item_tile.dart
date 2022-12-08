@@ -33,7 +33,7 @@ class _ItemTileState extends State<ItemTile> {
     setState(
       () => tileIcon = Icons.check,
     );
-    print('ESTOU DENTRO DO SWITCH');
+    // print('ESTOU DENTRO DO SWITCH');
     await Future.delayed(const Duration(seconds: 3));
     setState(
       () => tileIcon = Icons.add_shopping_cart_outlined,
@@ -106,6 +106,7 @@ class _ItemTileState extends State<ItemTile> {
           ),
         ),
         // CONTAINER DO CARRINHO
+        //BOTÃO DE ADICIONAR ITENS AO CARRINHO
         Positioned(
             top: 4,
             right: 4,
