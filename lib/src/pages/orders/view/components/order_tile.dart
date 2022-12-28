@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:greengrocery/src/config/custom_colors.dart';
-import 'package:greengrocery/src/models/orders_model.dart';
+import 'package:greengrocery/src/models/order_model.dart';
 import 'package:greengrocery/src/models/app_data.dart' as appData;
-import 'package:greengrocery/src/pages/orders/components/order_status_widget.dart';
+import 'package:greengrocery/src/pages/orders/view/components/order_status_widget.dart';
 import 'package:greengrocery/src/services/utils_services.dart';
 
-import '../../comom_widgets/payment_dialog.dart';
+import '../../../comom_widgets/payment_dialog.dart';
 
 class OrderTile extends StatelessWidget {
   final OrderModel order;
@@ -42,7 +42,7 @@ class OrderTile extends StatelessWidget {
                 ),
               ),
               Text(
-                utilServices.formatDateTime(order.createdDateTime),
+                utilServices.formatDateTime(order.createdDateTime!),
                 style: const TextStyle(
                   color: Colors.black,
                   fontSize: 14,

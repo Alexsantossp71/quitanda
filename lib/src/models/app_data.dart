@@ -2,7 +2,7 @@ import 'package:greengrocery/src/models/cart_item_model.dart';
 import 'package:greengrocery/src/models/item_model.dart';
 import 'package:greengrocery/src/models/user_model.dart';
 
-import 'orders_model.dart';
+import 'order_model.dart';
 
 ItemModel apple = ItemModel(
   description:

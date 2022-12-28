@@ -17,17 +17,10 @@ class CartTab extends StatefulWidget {
 
 class _CartTabState extends State<CartTab> {
   final UtilsServices utilsServices = UtilsServices();
-
-  /* void removeItemFromCart(CartItemModel cartItem) {
-    setState(() {
-      appData.cartItems.remove(cartItem);
-      utilsServices.showToast(
-          message: "${cartItem.item.itemName} removido(a) do carrinho");
-    });
-  }*/
+  final cartController = Get.find<CartController>();
 
   double cartTotalPrice() {
-    double total = 0;
+    //double total = 0;
     /*  for (var item in appData.cartItems) {
       total += item.totalPrice();
     }
@@ -64,8 +57,6 @@ class _CartTabState extends State<CartTab> {
               return ListView.builder(
                 itemCount: controller.cartItems.length,
                 itemBuilder: (_, index) {
-                  final cartItem = controller.cartItems[index];
-
                   return CartTile(
                     cartItem: controller.cartItems[index],
                     updatedQuantity: (qtd) {
@@ -114,6 +105,7 @@ class _CartTabState extends State<CartTab> {
                 child: GetBuilder<CartController>(
                   builder: (controller) {
                     return Text(
+                      // '12',
                       utilsServices
                           .priceToCurrency(controller.cartTotalPrice()),
                       style: TextStyle(
@@ -127,32 +119,33 @@ class _CartTabState extends State<CartTab> {
               ),
               SizedBox(
                 height: 50,
-                child: ElevatedButton(
-                  onPressed: () async {
-                    // CHAMA O DIALOG DE CONFIRMAÇÃO
-                    bool? result = await showOrderConfirmation();
+                child: GetBuilder<CartController>(
+                  builder: (controller) {
+                    return ElevatedButton(
+                      onPressed: controller.isCheckoutLoading
+                          ? null
+                          : () async {
+                              // CHAMA O DIALOG DE CONFIRMAÇÃO
+                              bool? result = await showOrderConfirmation();
 
-                    if (result ?? false) {
-                      showDialog(
-                        context: context,
-                        builder: (_) {
-                          return PaymentDialog(
-                            order: appData.orders.first,
-                          );
-                        },
-                      );
-                    } else {
-                      utilsServices.showToast(message: 'Pedido não confirmado');
-                    }
-                    ;
-                    print(result);
+                              if (result ?? false) {
+                                cartController.checkoutCart();
+                              } else {
+                                utilsServices.showToast(
+                                    message: 'Pedido não confirmado',
+                                    isError: true);
+                              }
+                            },
+                      style: ElevatedButton.styleFrom(
+                          primary: CustomColors.customSwacthColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          )),
+                      child: controller.isCheckoutLoading
+                          ? const CircularProgressIndicator()
+                          : const Text('Concluir Pedido'),
+                    );
                   },
-                  style: ElevatedButton.styleFrom(
-                      primary: CustomColors.customSwacthColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      )),
-                  child: const Text('Concluir Pedido'),
                 ),
               ),
             ],
@@ -182,14 +175,15 @@ class _CartTabState extends State<CartTab> {
                   },
                   child: const Text('Não')),
               ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16)),
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).pop(true);
-                  },
-                  child: const Text('Sim'))
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16)),
+                ),
+                child: const Text('Sim'),
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+              )
             ],
           );
         });

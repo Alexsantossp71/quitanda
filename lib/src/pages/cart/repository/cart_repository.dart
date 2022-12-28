@@ -1,64 +1,63 @@
-import 'package:get/get.dart';
 import 'package:greengrocery/src/constants/endpoints.dart';
 import 'package:greengrocery/src/models/cart_item_model.dart';
-import 'package:greengrocery/src/models/item_model.dart';
+import 'package:greengrocery/src/models/order_model.dart';
 import 'package:greengrocery/src/pages/cart/cart_result/cart_result.dart';
 import 'package:greengrocery/src/services/http_manager.dart';
 
 class CartRepository {
   final _httpManager = HttpManager();
-
   Future<CartResult<List<CartItemModel>>> getCartItems(
       {required String token, required String userId}) async {
     final result = await _httpManager.restRequest(
-      url: EndPoints.getCartItems,
-      method: HttpMethodos.post,
-      headers: {'X-Parse-Session-Token': token},
-      body: {
-        'user': userId,
-      },
-    );
+        url: EndPoints.getCartItems,
+        method: HttpMethodos.post,
+        headers: {
+          'X-Parse-Session-Token': token,
+        },
+        body: {
+          'user': userId,
+        });
 
     if (result['result'] != null) {
+//tratar
       List<CartItemModel> data =
           List<Map<String, dynamic>>.from(result['result'])
               .map(CartItemModel.fromJson)
               .toList();
 
       return CartResult<List<CartItemModel>>.success(data);
-      // print(result['result']);
     } else {
-      return CartResult.error('Não conseguiu buscar os itens do carrinho.');
+      //erro retornar mensagem de erro
+      return CartResult.error('Ocorreu erro ao acessar os itens do carrinho');
     }
-  }
+  } ////FIM DO getCartItems
 
-  Future<CartResult<String>> addItemToCart({
-    required String userId,
-    required String token,
-    required String productId,
-    required int quantity,
-  }) async {
+  /// INICIO CHECKOUT
+
+  Future<CartResult<OrderModel>> checkoutCart(
+      {required String token, required double total}) async {
     final result = await _httpManager.restRequest(
-        url: EndPoints.addItemToCart,
-        method: HttpMethodos.post,
-        body: {
-          'user': userId,
-          'quantity': quantity,
-          'productId': productId,
-        },
-        headers: {
-          'X-Parse-Session-Token': token,
-        });
+      url: EndPoints.checkout,
+      method: HttpMethodos.post,
+      body: {
+        'total': total,
+      },
+      headers: {
+        'X-Parse-Session-Token': token,
+      },
+    );
 
     if (result['result'] != null) {
-      //funcionou adicionou
-      return CartResult.success(result['result']['id']);
+      final order = OrderModel.fromJson(result['result']);
+      return CartResult<OrderModel>.success(order);
     } else {
-      //Errou
-      return CartResult.error('Erro ao addicionar produtos.');
+      return CartResult.error('Erro ao finalizar pedido, tente outra vez!');
     }
   }
 
+  /// FIM CHECKOUT
+
+  /// inicio modifica quantidade
   Future<bool> changeItemQuantity({
     required String token,
     required String cartItemId,
@@ -75,6 +74,37 @@ class CartRepository {
         'X-Parse-Session-Token': token,
       },
     );
+
     return result.isEmpty;
   }
+
+  /// FIM DO MODIFICA QUANTIDADE
+  Future<CartResult<String>> addItemToCart(
+      {required String token,
+      required String userId,
+      required String productId,
+      required int quantity}) async {
+    final result = await _httpManager.restRequest(
+      url: EndPoints.addItemToCart,
+      method: HttpMethodos.post,
+      headers: {
+        'X-Parse-Session-Token': token,
+      },
+      body: {
+        'user': userId,
+        'quantity': quantity,
+        'productId': productId,
+      },
+    );
+
+    if (result['result'] != null) {
+      // adicionamos o produto
+      return CartResult.success(result['result']['id']);
+    } else {
+      //produto não foi adicionado - ERRO
+      return CartResult.error('Não foi possivel adicionar item no carrinho');
+    }
+  }
+
+  // FIM do addItemToCart
 }

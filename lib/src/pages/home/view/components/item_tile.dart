@@ -45,18 +45,18 @@ class _ItemTileState extends State<ItemTile> {
     return Stack(
       children: [
         // CARD COM OS DADOS DO PRODUTO
-        Card(
-          elevation: 3,
-          shadowColor: Colors.grey.shade300,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
+        GestureDetector(
+          onTap: () {
+            Get.toNamed(PagesRoutes.productRoute, arguments: widget.item);
+          },
+          child: Card(
+            elevation: 3,
+            shadowColor: Colors.grey.shade300,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
 
-          // CARD COM DADOS DO PRODUTO
-          child: GestureDetector(
-            onTap: () {
-              Get.toNamed(PagesRoutes.productRoute, arguments: widget.item);
-            },
+            // CARD COM DADOS DO PRODUTO
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Column(

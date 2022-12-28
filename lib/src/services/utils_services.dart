@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
@@ -42,6 +45,14 @@ class UtilsServices {
     return dateFormat.format(dateTime);
   }
 
+//INICIO PARA CONVERTER O QRCODE
+  Uint8List decodeQrCodeImage(String value) {
+    String base64String = value.split(',').last;
+    return base64.decode(base64String);
+  }
+//FIM PARA CONVERTER O QRCODE
+
+// INICIO PARA MOSTRAR TOAST
   void showToast({
     required String message,
     bool isError = false,
