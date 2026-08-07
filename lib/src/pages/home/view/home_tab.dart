@@ -1,6 +1,5 @@
 import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:add_to_cart_animation/add_to_cart_icon.dart';
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocery/src/config/custom_colors.dart';
@@ -58,8 +57,8 @@ class _HomeTabState extends State<HomeTab> {
                         .navigationPageView(NavigationTabs.cart);
                   },
                   child: Badge(
-                    badgeColor: CustomColors.customContrastColor,
-                    badgeContent: Text(
+                    backgroundColor: CustomColors.customContrastColor,
+                    label: Text(
                         // este mostra quantos produtos tem no carrinho
                         controller.cartItems.length.toString()
                         // este mostra quants unidades tem no carrinho
@@ -81,10 +80,8 @@ class _HomeTabState extends State<HomeTab> {
       ),
 
       body: AddToCartAnimation(
-        gkCart: globalKeyCartItems,
-        previewDuration: const Duration(milliseconds: 100),
-        previewCurve: Curves.ease,
-        receiveCreateAddToCardAnimationMethod: (addToCardAnimationMethod) {
+        cartKey: globalKeyCartItems,
+        createAddToCartAnimation: (addToCardAnimationMethod) {
           runAddToCardAnimation = addToCardAnimationMethod;
         },
         child: Column(
