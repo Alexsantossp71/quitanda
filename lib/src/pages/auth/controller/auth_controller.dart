@@ -52,7 +52,7 @@ class AuthController extends GetxController {
 
   //authRepository.validateToken(token);
 
-  saveTokenAndProceedToBase() {
+  void saveTokenAndProceedToBase() {
     // salvar o token
     utilsServices.saveLocalData(key: StorageKeys.token, data: user.token!);
 

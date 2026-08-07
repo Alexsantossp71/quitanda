@@ -12,7 +12,7 @@ import 'package:greengrocery/src/pages_routes/app_pages.dart';
 import 'package:greengrocery/src/services/utils_services.dart';
 
 class SingInScreen extends StatelessWidget {
-  SingInScreen({Key? key}) : super(key: key);
+  SingInScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
@@ -93,11 +93,9 @@ class SingInScreen extends StatelessWidget {
                         if (email == null || email.isEmpty) {
                           return 'Digite seu e-mail';
                         }
-                        ;
                         if (!email.isEmail) {
                           return 'Digite um e-mail valido';
                         }
-                        ;
 
                         return null;
                       },
@@ -136,6 +134,9 @@ class SingInScreen extends StatelessWidget {
                                       //  Get.offNamed(PagesRoutes.baseRoute);
                                     }
                                   },
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15))),
                             child: authController.isLoading.value
                                 ? const CircularProgressIndicator(
                                     // color: Colors.white,
@@ -146,9 +147,6 @@ class SingInScreen extends StatelessWidget {
                                       fontSize: 18,
                                     ),
                                   ),
-                            style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15))),
                           );
                         },
                       ),

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:greengrocery/src/config/custom_colors.dart';
 import 'package:greengrocery/src/models/item_model.dart';
 import 'package:greengrocery/src/pages/cart/controller/cart_controller.dart';
-import 'package:greengrocery/src/pages/product/product_screen.dart';
 import 'package:greengrocery/src/pages_routes/app_pages.dart';
 import 'package:greengrocery/src/services/utils_services.dart';
 
@@ -12,10 +11,10 @@ class ItemTile extends StatefulWidget {
   final void Function(GlobalKey) cartAnimationMethod;
 
   const ItemTile({
-    Key? key,
+    super.key,
     required this.item,
     required this.cartAnimationMethod,
-  }) : super(key: key);
+  });
 
   @override
   State<ItemTile> createState() => _ItemTileState();
@@ -67,10 +66,10 @@ class _ItemTileState extends State<ItemTile> {
                     child: Hero(
                       tag: widget.item.imgUrl,
                       child: Container(
+                        key: imageGk,
                         child: Image.network(
                           widget.item.imgUrl,
                         ),
-                        key: imageGk,
                       ),
                     ),
                   ),

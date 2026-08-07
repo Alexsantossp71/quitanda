@@ -9,7 +9,7 @@ import 'package:greengrocery/src/services/validators.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class SingUpScreen extends StatelessWidget {
-  SingUpScreen({Key? key}) : super(key: key);
+  SingUpScreen({super.key});
 
   final cpfFormatter = MaskTextInputFormatter(
     mask: '###.###.###-##',

@@ -16,7 +16,7 @@ import 'package:greengrocery/src/pages/home/view/components/titulo_formatado.dar
 import 'package:greengrocery/src/services/utils_services.dart';
 
 class HomeTab extends StatefulWidget {
-  const HomeTab({Key? key}) : super(key: key);
+  const HomeTab({super.key});
 
   @override
   State<HomeTab> createState() => _HomeTabState();
@@ -195,6 +195,17 @@ class _HomeTabState extends State<HomeTab> {
                     ? Visibility(
                         visible: (controller.currentCategory?.items ?? [])
                             .isNotEmpty,
+                        replacement: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.search_off,
+                              size: 40,
+                              color: CustomColors.customSwacthColor,
+                            ),
+                            const Text('Não há produtos encontrados.'),
+                          ],
+                        ),
                         child: GridView.builder(
                           padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                           physics: const BouncingScrollPhysics(),
@@ -218,17 +229,6 @@ class _HomeTabState extends State<HomeTab> {
                               cartAnimationMethod: itemSelectedCartAnimations,
                             );
                           },
-                        ),
-                        replacement: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.search_off,
-                              size: 40,
-                              color: CustomColors.customSwacthColor,
-                            ),
-                            const Text('Não há produtos encontrados.'),
-                          ],
                         ),
                       )
                     : GridView.count(

@@ -4,7 +4,7 @@ import 'package:greengrocery/src/pages/orders/controller/all_orders_controler.da
 import 'package:greengrocery/src/pages/orders/view/components/order_tile.dart';
 
 class OrdersTab extends StatefulWidget {
-  const OrdersTab({Key? key}) : super(key: key);
+  const OrdersTab({super.key});
 
   @override
   State<OrdersTab> createState() => _OrdersTabState();

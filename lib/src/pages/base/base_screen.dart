@@ -7,7 +7,7 @@ import 'package:greengrocery/src/pages/orders/view/orders_tab.dart';
 import 'package:greengrocery/src/pages/profile/profile_page.dart';
 
 class BaseScreen extends StatefulWidget {
-  const BaseScreen({Key? key}) : super(key: key);
+  const BaseScreen({super.key});
 
   @override
   State<BaseScreen> createState() => _BaseScreenState();

@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocery/src/config/custom_colors.dart';
-import 'package:greengrocery/src/models/cart_item_model.dart';
 import 'package:greengrocery/src/pages/cart/controller/cart_controller.dart';
 import 'package:greengrocery/src/pages/cart/view/components/cart_tile.dart';
-import 'package:greengrocery/src/pages/comom_widgets/payment_dialog.dart';
 import 'package:greengrocery/src/services/utils_services.dart';
-import 'package:greengrocery/src/models/app_data.dart' as appData;
 
 class CartTab extends StatefulWidget {
-  const CartTab({Key? key}) : super(key: key);
+  const CartTab({super.key});
 
   @override
   State<CartTab> createState() => _CartTabState();
@@ -95,7 +92,7 @@ class _CartTabState extends State<CartTab> {
             children: [
               const Text(
                 " Preço Total :",
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
                 ),
@@ -137,7 +134,7 @@ class _CartTabState extends State<CartTab> {
                               }
                             },
                       style: ElevatedButton.styleFrom(
-                          primary: CustomColors.customSwacthColor,
+                          backgroundColor: CustomColors.customSwacthColor,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                           )),

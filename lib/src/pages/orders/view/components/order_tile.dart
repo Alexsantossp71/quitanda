@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:greengrocery/src/config/custom_colors.dart';
 import 'package:greengrocery/src/models/order_model.dart';
-import 'package:greengrocery/src/models/app_data.dart' as appData;
 import 'package:greengrocery/src/pages/orders/view/components/order_status_widget.dart';
 import 'package:greengrocery/src/services/utils_services.dart';
 
@@ -9,7 +8,7 @@ import '../../../comom_widgets/payment_dialog.dart';
 
 class OrderTile extends StatelessWidget {
   final OrderModel order;
-  OrderTile({Key? key, required this.order}) : super(key: key);
+  OrderTile({super.key, required this.order});
 
   final UtilsServices utilServices = UtilsServices();
 
