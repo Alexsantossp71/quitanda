@@ -7,7 +7,7 @@ class TituloFormatado extends StatelessWidget {
   final Color? greenTitleColor;
   final double? textSize;
 
-   TituloFormatado({this.greenTitleColor, this.textSize = 30.0});
+   const TituloFormatado({super.key, this.greenTitleColor, this.textSize = 30.0});
 
   @override
   Widget build(BuildContext context) {

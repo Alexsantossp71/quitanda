@@ -7,13 +7,13 @@ class QuantityWidget extends StatelessWidget {
   final Function(int quantity) result;
   final bool isRemovable;
 
-  QuantityWidget({
-    Key? key,
+  const QuantityWidget({
+    super.key,
     required this.value,
     required this.suffixText,
     required this.result,
     this.isRemovable = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -65,12 +65,10 @@ class _QuantityButton extends StatelessWidget {
   final Color color;
   final IconData icon;
   final VoidCallback onPressed;
-  _QuantityButton(
-      {Key? key,
-      required this.color,
+  const _QuantityButton(
+      {required this.color,
       required this.icon,
-      required this.onPressed})
-      : super(key: key);
+      required this.onPressed});
   @override
   Widget build(BuildContext context) {
     return Material(

@@ -2,12 +2,11 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocery/src/models/order_model.dart';
 import 'package:greengrocery/src/services/utils_services.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 
 class PaymentDialog extends StatelessWidget {
   final OrderModel order;
 
-  PaymentDialog({Key? key, required this.order}) : super(key: key);
+  PaymentDialog({super.key, required this.order});
 
   final UtilsServices utilsServices = UtilsServices();
 

@@ -5,7 +5,7 @@ import 'package:greengrocery/src/pages/comom_widgets/custom_text_field.dart';
 import 'package:greengrocery/src/models/app_data.dart' as appData;
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({super.key});
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -66,7 +66,6 @@ class _ProfilePageState extends State<ProfilePage> {
               onPressed: () {
                 updatePassword();
               },
-              child: const Text('Alterar Senha'),
               style: OutlinedButton.styleFrom(
                   side: const BorderSide(
                     color: Colors.green,
@@ -74,6 +73,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   )),
+              child: const Text('Alterar Senha'),
             ),
           ),
         ],
@@ -132,10 +132,10 @@ class _ProfilePageState extends State<ProfilePage> {
                         height: 50,
                         child: ElevatedButton(
                           onPressed: () {},
-                          child: const Text('Confirmar'),
                           style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(16))),
+                          child: const Text('Confirmar'),
                         ),
                       ),
                     ],

@@ -7,7 +7,7 @@ import 'package:greengrocery/src/pages/auth/controller/auth_controller.dart';
 import 'package:greengrocery/src/pages/home/view/components/titulo_formatado.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();

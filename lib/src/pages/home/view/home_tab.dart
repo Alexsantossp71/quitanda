@@ -1,10 +1,8 @@
 import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:add_to_cart_animation/add_to_cart_icon.dart';
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocery/src/config/custom_colors.dart';
-import 'package:greengrocery/src/models/app_data.dart' as appData;
 import 'package:greengrocery/src/pages/base/controller/navigation_controller.dart';
 import 'package:greengrocery/src/pages/cart/controller/cart_controller.dart';
 import 'package:greengrocery/src/pages/comom_widgets/custom_shimmer.dart';
@@ -16,7 +14,7 @@ import 'package:greengrocery/src/pages/home/view/components/titulo_formatado.dar
 import 'package:greengrocery/src/services/utils_services.dart';
 
 class HomeTab extends StatefulWidget {
-  const HomeTab({Key? key}) : super(key: key);
+  const HomeTab({super.key});
 
   @override
   State<HomeTab> createState() => _HomeTabState();
@@ -58,8 +56,8 @@ class _HomeTabState extends State<HomeTab> {
                         .navigationPageView(NavigationTabs.cart);
                   },
                   child: Badge(
-                    badgeColor: CustomColors.customContrastColor,
-                    badgeContent: Text(
+                    backgroundColor: CustomColors.customContrastColor,
+                    label: Text(
                         // este mostra quantos produtos tem no carrinho
                         controller.cartItems.length.toString()
                         // este mostra quants unidades tem no carrinho
@@ -81,10 +79,8 @@ class _HomeTabState extends State<HomeTab> {
       ),
 
       body: AddToCartAnimation(
-        gkCart: globalKeyCartItems,
-        previewDuration: const Duration(milliseconds: 100),
-        previewCurve: Curves.ease,
-        receiveCreateAddToCardAnimationMethod: (addToCardAnimationMethod) {
+        cartKey: globalKeyCartItems,
+        createAddToCartAnimation: (addToCardAnimationMethod) {
           runAddToCardAnimation = addToCardAnimationMethod;
         },
         child: Column(
@@ -195,6 +191,17 @@ class _HomeTabState extends State<HomeTab> {
                     ? Visibility(
                         visible: (controller.currentCategory?.items ?? [])
                             .isNotEmpty,
+                        replacement: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.search_off,
+                              size: 40,
+                              color: CustomColors.customSwacthColor,
+                            ),
+                            const Text('Não há produtos encontrados.'),
+                          ],
+                        ),
                         child: GridView.builder(
                           padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                           physics: const BouncingScrollPhysics(),
@@ -218,17 +225,6 @@ class _HomeTabState extends State<HomeTab> {
                               cartAnimationMethod: itemSelectedCartAnimations,
                             );
                           },
-                        ),
-                        replacement: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.search_off,
-                              size: 40,
-                              color: CustomColors.customSwacthColor,
-                            ),
-                            const Text('Não há produtos encontrados.'),
-                          ],
                         ),
                       )
                     : GridView.count(

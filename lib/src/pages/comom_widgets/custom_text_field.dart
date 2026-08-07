@@ -14,8 +14,8 @@ class CustomTextField extends StatefulWidget {
   final TextInputType? textInputType;
   final GlobalKey<FormFieldState>? formFieldKey;
 
-  CustomTextField({
-    Key? key,
+  const CustomTextField({
+    super.key,
     required this.icon,
     required this.label,
     this.isSecret = false,
@@ -27,7 +27,7 @@ class CustomTextField extends StatefulWidget {
     this.textInputType,
     this.controller,
     this.formFieldKey,
-  }) : super(key: key);
+  });
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();

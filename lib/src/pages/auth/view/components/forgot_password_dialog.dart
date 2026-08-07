@@ -9,8 +9,8 @@ class ForgotPasswordDialog extends StatelessWidget {
 
   ForgotPasswordDialog({
     required String email,
-    Key? key,
-  }) : super(key: key) {
+    super.key,
+  }) {
     emailController.text = email;
   }
 
