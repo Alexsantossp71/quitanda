@@ -3,7 +3,6 @@ import 'package:add_to_cart_animation/add_to_cart_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocery/src/config/custom_colors.dart';
-import 'package:greengrocery/src/models/app_data.dart' as appData;
 import 'package:greengrocery/src/pages/base/controller/navigation_controller.dart';
 import 'package:greengrocery/src/pages/cart/controller/cart_controller.dart';
 import 'package:greengrocery/src/pages/comom_widgets/custom_shimmer.dart';
