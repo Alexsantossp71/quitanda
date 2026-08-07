@@ -14,7 +14,7 @@ CategoryModel _$CategoryModelFromJson(Map<String, dynamic> json) =>
               ?.map((e) => ItemModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
-      pagination: json['pagination'] as int? ?? 0,
+      pagination: (json['pagination'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$CategoryModelToJson(CategoryModel instance) =>

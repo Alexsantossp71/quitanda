@@ -17,8 +17,7 @@ class OrderStatusWiget extends StatelessWidget {
 
   int get currentStatus => allStatus[status]!;
 
-   OrderStatusWiget({Key? key, required this.status, required this.isOverdue})
-      : super(key: key);
+   OrderStatusWiget({super.key, required this.status, required this.isOverdue});
 
   @override
 
@@ -86,7 +85,7 @@ class OrderStatusWiget extends StatelessWidget {
 }
 
 class _CustomDivider extends StatelessWidget {
-  const _CustomDivider({Key? key}) : super(key: key);
+  const _CustomDivider();
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +103,7 @@ class _StatusDot extends StatelessWidget {
   final bool isActive;
   final String title;
   final Color? backgroundColor;
-   const _StatusDot({Key? key, this.backgroundColor, required this.isActive, required this.title,}) : super(key: key);
+   const _StatusDot({this.backgroundColor, required this.isActive, required this.title,});
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +115,6 @@ class _StatusDot extends StatelessWidget {
           alignment: Alignment.center,
           height: 20,
           width: 20,
-          child: isActive ?  const Icon(Icons.check, size: 13, color: Colors.white,) : const SizedBox.shrink(),
           decoration: BoxDecoration(
             color:
                 isActive
@@ -127,6 +125,7 @@ class _StatusDot extends StatelessWidget {
               color: CustomColors.customSwacthColor,
             ),
           ),
+          child: isActive ?  const Icon(Icons.check, size: 13, color: Colors.white,) : const SizedBox.shrink(),
         ),
 
         //ESPAÇO

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:greengrocery/src/config/custom_colors.dart';
 
 class CategoryTile extends StatelessWidget {
-  CategoryTile({
-    Key? key,
+  const CategoryTile({
+    super.key,
     required this.category,
     required this.isSelected,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   final String category;
   final bool isSelected;
