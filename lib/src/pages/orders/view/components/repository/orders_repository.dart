@@ -1,7 +1,6 @@
 import 'package:greengrocery/src/config/demo_mode.dart';
 import 'package:greengrocery/src/constants/endpoints.dart';
 import 'package:greengrocery/src/models/order_model.dart';
-import 'package:greengrocery/src/pages/auth/controller/auth_controller.dart';
 import 'package:greengrocery/src/pages/orders/orders_result/orders_result.dart';
 import 'package:greengrocery/src/services/http_manager.dart';
 import 'package:greengrocery/src/pages/orders/view/components/repository/demo_orders_repository.dart';
