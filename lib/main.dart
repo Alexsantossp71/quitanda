@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocery/src/pages/auth/controller/auth_controller.dart';
-//import 'package:greengrocery/src/pages/auth/view/singInScreen.dart';
-//import 'package:greengrocery/src/pages/splash/splash_screen.dart';
 import 'package:greengrocery/src/pages_routes/app_pages.dart';
+import 'package:greengrocery/src/services/http_manager.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-
   Get.put(AuthController());
   runApp(const MyApp());
 }
@@ -15,7 +13,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -25,10 +22,21 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
         scaffoldBackgroundColor: Colors.white.withAlpha(190),
       ),
-      //home: const SplashScreen(),
       initialRoute: PagesRoutes.splashRoute,
       getPages: AppPages.pages,
-      //SingInScreen(),
+      builder: (context, child) {
+        if (kDemoMode) {
+          return Banner(
+            location: BannerLocation.topEnd,
+            message: 'MODO DEMO',
+            textDirection: TextDirection.ltr,
+            color: Colors.orange,
+            style: BannerStyle.fixed,
+            child: child!,
+          );
+        }
+        return child!;
+      },
     );
   }
 }
