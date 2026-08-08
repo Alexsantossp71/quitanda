@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 
+import 'package:greengrocery/src/config/demo_mode.dart';
+
 abstract class HttpMethodos {
   static const String post = 'POST';
   static const String get = 'GET';
@@ -30,6 +32,11 @@ class HttpManager {
     Map? headers,
     Map? body,
   }) async {
+    // In demo mode, skip all network requests
+    if (kDemoMode) {
+      return {};
+    }
+
     final defaultHeaders = headers?.cast<String, String>() ?? {}
       ..addAll({
         'content-type': 'application/json; charset=utf-8',

@@ -1,14 +1,15 @@
-//import 'package:dio/dio.dart';
+import 'package:greengrocery/src/config/demo_mode.dart';
 import 'package:greengrocery/src/constants/endpoints.dart';
 import 'package:greengrocery/src/models/user_model.dart';
 import 'package:greengrocery/src/pages/auth/repositories/auth_errors.dart'
     as authErrors;
 import 'package:greengrocery/src/pages/auth/result/auth_result.dart';
 import 'package:greengrocery/src/services/http_manager.dart';
+import 'package:greengrocery/src/pages/auth/repositories/demo_auth_repository.dart';
 
 class AuthRepository {
-  // valida token
   final HttpManager _httpManager = HttpManager();
+  final DemoAuthRepository _demoRepo = DemoAuthRepository();
 
   AuthResult handleUserOrError(Map<dynamic, dynamic> result) {
     if (result['result'] != null) {
@@ -19,9 +20,11 @@ class AuthRepository {
     }
   }
 
-// TESTA SE TEM TOKEN
-
   Future<AuthResult> validateToken(String token) async {
+    if (kDemoMode) {
+      return _demoRepo.validateToken(token);
+    }
+
     final result = await _httpManager.restRequest(
         url: EndPoints.validadeToken,
         method: HttpMethodos.post,
@@ -32,10 +35,12 @@ class AuthRepository {
     return handleUserOrError(result);
   }
 
-  /// TESTA O SING IN
-
   Future<AuthResult> signIn(
       {required String email, required String password}) async {
+    if (kDemoMode) {
+      return _demoRepo.signIn(email: email, password: password);
+    }
+
     final result = await _httpManager
         .restRequest(url: EndPoints.signin, method: HttpMethodos.post, body: {
       'email': email,
@@ -46,22 +51,26 @@ class AuthRepository {
   }
 
   Future<AuthResult> signUp(UserModel user) async {
+    if (kDemoMode) {
+      return _demoRepo.signUp(user);
+    }
+
     final result = await _httpManager.restRequest(
         url: EndPoints.signup,
         method: HttpMethodos.post,
-        // o que vai enviar
         body: user.toJson());
 
     return handleUserOrError(result);
   }
 
-  // reseta a senha
-
   Future<void> resetPassword(String email) async {
+    if (kDemoMode) {
+      return _demoRepo.resetPassword(email);
+    }
+
     await _httpManager.restRequest(
         url: EndPoints.resetPassword,
         method: HttpMethodos.post,
-        // o que vai enviar
         body: {'email': email});
   }
 }
