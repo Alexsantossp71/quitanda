@@ -26,24 +26,18 @@ class _ItemTileState extends State<ItemTile> {
   final UtilsServices utilsServices = UtilsServices();
   final cartController = Get.find<CartController>();
 
-  IconData tileIcon = Icons.add_shopping_cart_outlined; //Icons.check;
+  IconData tileIcon = Icons.add_shopping_cart_outlined;
 
   Future<void> switchIcon() async {
-    setState(
-      () => tileIcon = Icons.check,
-    );
-    // print('ESTOU DENTRO DO SWITCH');
+    setState(() => tileIcon = Icons.check);
     await Future.delayed(const Duration(seconds: 3));
-    setState(
-      () => tileIcon = Icons.add_shopping_cart_outlined,
-    );
+    setState(() => tileIcon = Icons.add_shopping_cart_outlined);
   }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        // CARD COM OS DADOS DO PRODUTO
         GestureDetector(
           onTap: () {
             Get.toNamed(PagesRoutes.productRoute, arguments: widget.item);
@@ -54,14 +48,11 @@ class _ItemTileState extends State<ItemTile> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
-
-            // CARD COM DADOS DO PRODUTO
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  //IMAGEM
                   Expanded(
                     child: Hero(
                       tag: widget.item.imgUrl,
@@ -69,17 +60,27 @@ class _ItemTileState extends State<ItemTile> {
                         key: imageGk,
                         child: Image.network(
                           widget.item.imgUrl,
+                          fit: BoxFit.contain,
+                          errorBuilder: (_, __, ___) => Container(
+                            decoration: BoxDecoration(
+                              color: Colors.green.shade50,
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: Icon(
+                              Icons.broken_image_outlined,
+                              color: Colors.green.shade200,
+                              size: 48,
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                  // NOME
                   Text(
                     widget.item.itemName,
                     style: const TextStyle(
                         fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                  // PREÇO - UNIDADE
                   Row(
                     children: [
                       Text(
@@ -104,42 +105,37 @@ class _ItemTileState extends State<ItemTile> {
             ),
           ),
         ),
-        // CONTAINER DO CARRINHO
-        //BOTÃO DE ADICIONAR ITENS AO CARRINHO
         Positioned(
-            top: 4,
-            right: 4,
-            child: ClipRRect(
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(15),
-                topRight: Radius.circular(20),
-              ),
-              child: Material(
-                child: InkWell(
-                  onTap: () {
-                    // print('CLICOU PARA O CARRINHO');
-                    switchIcon();
-                    cartController.addItemToCart(item: widget.item);
-
-                    widget.cartAnimationMethod(imageGk);
-                  },
-                  child: Ink(
-                    height: 40,
-                    width: 35,
-                    decoration: BoxDecoration(
-                      color: CustomColors.customSwacthColor,
-                    ),
-                    child: Icon(
-                      // Icons.shopping_cart_outlined,
-                      tileIcon,
-
-                      color: Colors.white,
-                      size: 20,
-                    ),
+          top: 4,
+          right: 4,
+          child: ClipRRect(
+            borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(15),
+              topRight: Radius.circular(20),
+            ),
+            child: Material(
+              child: InkWell(
+                onTap: () {
+                  switchIcon();
+                  cartController.addItemToCart(item: widget.item);
+                  widget.cartAnimationMethod(imageGk);
+                },
+                child: Ink(
+                  height: 40,
+                  width: 35,
+                  decoration: BoxDecoration(
+                    color: CustomColors.customSwacthColor,
+                  ),
+                  child: Icon(
+                    tileIcon,
+                    color: Colors.white,
+                    size: 20,
                   ),
                 ),
               ),
-            )),
+            ),
+          ),
+        ),
       ],
     );
   }
