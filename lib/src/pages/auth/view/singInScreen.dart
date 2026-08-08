@@ -1,3 +1,4 @@
+import 'package:greengrocery/src/config/responsive_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:get/get.dart';
@@ -69,15 +70,19 @@ class SingInScreen extends StatelessWidget {
             )),
             // FORMULÁRIO
             Container(
+              constraints: const BoxConstraints(maxWidth: 500),
               padding: const EdgeInsets.symmetric(
                 horizontal: 32,
                 vertical: 40,
               ),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(45),
-                ),
+                borderRadius: ResponsiveLayout.isDesktop(context)
+                    ? const BorderRadius.all(Radius.circular(24))
+                    : const BorderRadius.vertical(top: Radius.circular(45)),
+                boxShadow: const [
+                  BoxShadow(color: Colors.black12, blurRadius: 20, offset: Offset(0, -4)),
+                ],
               ),
               child: Form(
                 key: _formKey,
