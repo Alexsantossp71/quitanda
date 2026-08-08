@@ -5,6 +5,7 @@ import 'package:greengrocery/src/pages/orders/orders_result/orders_result.dart';
 import 'package:greengrocery/src/services/http_manager.dart';
 
 class OrderRepository {
+  bool get _isDemo => kDemoMode;
   final _httpManager = HttpManager();
   final authController = AuthController();
 
