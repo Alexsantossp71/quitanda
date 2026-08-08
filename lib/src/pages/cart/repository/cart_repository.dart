@@ -6,8 +6,12 @@ import 'package:greengrocery/src/services/http_manager.dart';
 
 class CartRepository {
   final _httpManager = HttpManager();
-  Future<CartResult<List<CartItemModel>>> getCartItems(
-      {required String token, required String userId}) async {
+  bool get _isDemo => kDemoMode;
+  Future<CartResult<List<CartItemModel>>> getCartItems({required String token, required String userId}) async {
+    if (_isDemo) {
+      await Future.delayed(const Duration(milliseconds: 200));
+      return CartResult<List<CartItemModel>>.success([]);
+    }
     final result = await _httpManager.restRequest(
         url: EndPoints.getCartItems,
         method: HttpMethodos.post,
@@ -34,8 +38,20 @@ class CartRepository {
 
   /// INICIO CHECKOUT
 
-  Future<CartResult<OrderModel>> checkoutCart(
-      {required String token, required double total}) async {
+  Future<CartResult<OrderModel>> checkoutCart({required String token, required double total}) async {
+    if (_isDemo) {
+      await Future.delayed(const Duration(milliseconds: 600));
+      return CartResult<OrderModel>.success(OrderModel(
+        id: 'demo_order_${DateTime.now().millisecondsSinceEpoch}',
+        createdDateTime: DateTime.now(),
+        overdueDateTime: DateTime.now().add(const Duration(hours: 1)),
+        items: [],
+        status: 'pending_payment',
+        copyAndPaste: '00020126...',
+        total: total,
+        qrCodeImage: '',
+      ));
+    }
     final result = await _httpManager.restRequest(
       url: EndPoints.checkout,
       method: HttpMethodos.post,
