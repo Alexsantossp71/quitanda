@@ -52,7 +52,7 @@ class SingInScreen extends StatelessWidget {
                       child: AnimatedTextKit(
                         repeatForever: true,
                         pause: Duration.zero,
-                        animatedTexts: const [
+                        animatedTexts: [
                           FadeAnimatedText("Frutas"),
                           FadeAnimatedText("Verduras"),
                           FadeAnimatedText("Cereais"),
