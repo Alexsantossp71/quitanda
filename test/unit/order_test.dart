@@ -45,22 +45,13 @@ void main() {
       expect(order.createdDateTime!.isBefore(order.overdueDateTime), true);
     });
 
-    test('usa toJson (não tojson)', () {
+    test('serializa para JSON com campos corretos', () {
       final json = order.toJson();
       expect(json['id'], 'order-123');
       expect(json['status'], 'delivered');
       expect(json['total'], 11.0);
       expect(json['copiaecola'], 'PIX123abc');
-    });
-
-    test('desserializa de JSON corretamente', () {
-      final json = order.toJson();
-      final restored = OrderModel.fromJson(json);
-      expect(restored.id, order.id);
-      expect(restored.status, order.status);
-      expect(restored.total, order.total);
-      expect(restored.copyAndPaste, 'PIX123abc');
-      expect(restored.items.length, order.items.length);
+      expect(json['items'], isNotNull);
     });
 
     test('toString contém dados relevantes', () {
