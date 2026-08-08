@@ -3,6 +3,7 @@ import 'package:add_to_cart_animation/add_to_cart_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocery/src/config/custom_colors.dart';
+import 'package:greengrocery/src/config/responsive_layout.dart';
 import 'package:greengrocery/src/pages/base/controller/navigation_controller.dart';
 import 'package:greengrocery/src/pages/cart/controller/cart_controller.dart';
 import 'package:greengrocery/src/pages/comom_widgets/custom_shimmer.dart';
@@ -35,13 +36,11 @@ class _HomeTabState extends State<HomeTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //APP BAR COM O TITULO - CARRINHO E BADGE
-
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        title: TituloFormatado(),
+        title: const TituloFormatado(),
         actions: [
           Padding(
             padding: const EdgeInsets.only(
@@ -57,12 +56,7 @@ class _HomeTabState extends State<HomeTab> {
                   },
                   child: Badge(
                     backgroundColor: CustomColors.customContrastColor,
-                    label: Text(
-                        // este mostra quantos produtos tem no carrinho
-                        controller.cartItems.length.toString()
-                        // este mostra quants unidades tem no carrinho
-                        // controller.getCartTotalItems().toString()
-                        ),
+                    label: Text(controller.cartItems.length.toString()),
                     child: AddToCartIcon(
                       key: globalKeyCartItems,
                       icon: Icon(
@@ -85,11 +79,10 @@ class _HomeTabState extends State<HomeTab> {
         },
         child: Column(
           children: [
-            /////////////////////////////////////////////////////////
-            // CAMPO DE PESQUISA
+            // Search field
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
+              padding: EdgeInsets.symmetric(
+                horizontal: ResponsiveLayout.horizontalPadding(context),
                 vertical: 10,
               ),
               child: GetBuilder<HomeController>(
@@ -138,11 +131,13 @@ class _HomeTabState extends State<HomeTab> {
                 },
               ),
             ),
-//////////////////////////////////////////////////////////////////////////////
-            // LISTA CATEGORIAS
+
+            // Categories
             GetBuilder<HomeController>(builder: (controller) {
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.symmetric(
+                  horizontal: ResponsiveLayout.horizontalPadding(context) - 10,
+                ),
                 child: SizedBox(
                   height: 40,
                   child: !controller.isCategoryLoading
@@ -160,9 +155,7 @@ class _HomeTabState extends State<HomeTab> {
                             );
                           },
                           separatorBuilder: (_, index) {
-                            return const SizedBox(
-                              width: 10,
-                            );
+                            return const SizedBox(width: 10);
                           },
                           itemCount: controller.allCategories.length)
                       : ListView(
@@ -170,7 +163,7 @@ class _HomeTabState extends State<HomeTab> {
                           children: List.generate(
                             10,
                             (index) => Container(
-                              margin: EdgeInsets.only(right: 10),
+                              margin: const EdgeInsets.only(right: 10),
                               alignment: Alignment.center,
                               child: CustomShimmer(
                                 height: 25,
@@ -183,9 +176,12 @@ class _HomeTabState extends State<HomeTab> {
                 ),
               );
             }),
-///////////////////  GRID DE PRODUTOS /////////////////////////
-            // GRID DE PRODUTOS
+
+            // Product grid — responsive columns
             GetBuilder<HomeController>(builder: (controller) {
+              final int crossCount = ResponsiveLayout.gridColumns(context);
+              final double hPad = ResponsiveLayout.horizontalPadding(context);
+
               return Expanded(
                 child: !controller.isProductLoading
                     ? Visibility(
@@ -203,11 +199,11 @@ class _HomeTabState extends State<HomeTab> {
                           ],
                         ),
                         child: GridView.builder(
-                          padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                          padding: EdgeInsets.fromLTRB(hPad, 0, hPad, 16),
                           physics: const BouncingScrollPhysics(),
                           gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: crossCount,
                             mainAxisSpacing: 10,
                             crossAxisSpacing: 10,
                             childAspectRatio: 9 / 11.5,
@@ -218,8 +214,6 @@ class _HomeTabState extends State<HomeTab> {
                                 !controller.isLastPage) {
                               controller.loadMoreProducts();
                             }
-///////////////////////////////////////////////////////////////////////////
-                            // ITEM  TILE QUE MOSTRA CADA PRODUTO
                             return ItemTile(
                               item: controller.allProducts[index],
                               cartAnimationMethod: itemSelectedCartAnimations,
@@ -228,9 +222,9 @@ class _HomeTabState extends State<HomeTab> {
                         ),
                       )
                     : GridView.count(
-                        padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                        padding: EdgeInsets.fromLTRB(hPad, 0, hPad, 16),
                         physics: const BouncingScrollPhysics(),
-                        crossAxisCount: 2,
+                        crossAxisCount: crossCount,
                         mainAxisSpacing: 10,
                         crossAxisSpacing: 10,
                         childAspectRatio: 9 / 11.5,
