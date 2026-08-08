@@ -25,20 +25,23 @@ void main() {
       expect(item.description, isNotEmpty);
     });
 
-    test('serializa para JSON corretamente', () {
+    test('serializa para JSON com chaves title e picture', () {
       final json = item.toJson();
       expect(json['id'], 'item-1');
+      // itemName é serializado como 'title'
       expect(json['title'], 'Maçã Gala');
+      // imgUrl é serializado como 'picture'
       expect(json['picture'], 'https://example.com/apple.png');
       expect(json['price'], 5.49);
       expect(json['unit'], 'kg');
     });
 
-    test('desserializa de JSON corretamente', () {
+    test('desserializa de JSON com chaves title e picture', () {
       final json = item.toJson();
       final restored = ItemModel.fromJson(json);
       expect(restored.id, item.id);
-      expect(restored.itemName, item.itemName);
+      expect(restored.itemName, 'Maçã Gala');
+      expect(restored.imgUrl, 'https://example.com/apple.png');
       expect(restored.price, item.price);
     });
 
