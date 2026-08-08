@@ -46,11 +46,12 @@ void main() {
     });
 
     test('usa toJson (não tojson)', () {
-      // Verifica que o método existe e funciona (P0 fix)
       final json = order.toJson();
       expect(json['id'], 'order-123');
       expect(json['status'], 'delivered');
       expect(json['total'], 11.0);
+      // copyAndPaste serializa como 'copiaecola'
+      expect(json['copiaecola'], 'PIX123abc');
     });
 
     test('desserializa de JSON corretamente', () {
@@ -59,6 +60,7 @@ void main() {
       expect(restored.id, order.id);
       expect(restored.status, order.status);
       expect(restored.total, order.total);
+      expect(restored.copyAndPaste, 'PIX123abc');
       expect(restored.items.length, order.items.length);
     });
 
