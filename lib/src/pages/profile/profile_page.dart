@@ -1,3 +1,4 @@
+import 'package:greengrocery/src/config/responsive_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocery/src/pages/auth/controller/auth_controller.dart';
@@ -27,10 +28,16 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ],
       ),
-      body: ListView(
-        physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.fromLTRB(16, 32, 16, 16),
-        children: [
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 600),
+          child: ListView(
+            physics: const BouncingScrollPhysics(),
+            padding: EdgeInsets.symmetric(
+              horizontal: ResponsiveLayout.hPadding(context),
+              vertical: 24,
+            ),
+            children: [
           //email
           CustomTextField(
             initialValue: appData.user.email,
