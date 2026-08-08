@@ -30,13 +30,13 @@ void main() {
     });
 
     test('calcula preço total corretamente', () {
-      // 7.89 * 3 = 23.67
-      expect(cartItem.totalPrice(), 23.67);
+      // 7.89 * 3 = 23.67 (usa closeTo para float precision)
+      expect(cartItem.totalPrice(), closeTo(23.67, 0.01));
     });
 
     test('calcula preço total com quantidade 1', () {
       final single = CartItemModel(id: 'c2', item: item, quantity: 1);
-      expect(single.totalPrice(), 7.89);
+      expect(single.totalPrice(), closeTo(7.89, 0.01));
     });
 
     test('calcula preço total com quantidade zero', () {
@@ -48,9 +48,8 @@ void main() {
       final json = cartItem.toJson();
       expect(json['id'], 'cart-1');
       expect(json['quantity'], 3);
-      // item é serializado como 'product'
       expect(json['product'], isNotNull);
-      expect(json['product']['title'], 'Uva Thompson');
+      expect((json['product'] as Map)['title'], 'Uva Thompson');
     });
 
     test('desserializa de JSON com chave product', () {
