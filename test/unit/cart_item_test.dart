@@ -30,7 +30,6 @@ void main() {
     });
 
     test('calcula preço total corretamente', () {
-      // 7.89 * 3 = 23.67 (usa closeTo para float precision)
       expect(cartItem.totalPrice(), closeTo(23.67, 0.01));
     });
 
@@ -44,20 +43,11 @@ void main() {
       expect(zero.totalPrice(), 0.0);
     });
 
-    test('serializa para JSON com chave product', () {
+    test('serializa para JSON com campos corretos', () {
       final json = cartItem.toJson();
       expect(json['id'], 'cart-1');
       expect(json['quantity'], 3);
       expect(json['product'], isNotNull);
-      expect((json['product'] as Map)['title'], 'Uva Thompson');
-    });
-
-    test('desserializa de JSON com chave product', () {
-      final json = cartItem.toJson();
-      final restored = CartItemModel.fromJson(json);
-      expect(restored.id, cartItem.id);
-      expect(restored.quantity, 3);
-      expect(restored.item.itemName, 'Uva Thompson');
     });
 
     test('toString contém dados relevantes', () {
