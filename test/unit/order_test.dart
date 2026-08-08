@@ -50,7 +50,6 @@ void main() {
       expect(json['id'], 'order-123');
       expect(json['status'], 'delivered');
       expect(json['total'], 11.0);
-      // copyAndPaste serializa como 'copiaecola'
       expect(json['copiaecola'], 'PIX123abc');
     });
 
