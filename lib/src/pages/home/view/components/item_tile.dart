@@ -56,13 +56,13 @@ class _ItemTileState extends State<ItemTile> {
             ),
 
             // CARD COM DADOS DO PRODUTO
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  //IMAGEM
-                  Expanded(
+            clipBehavior: Clip.antiAlias,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                //IMAGEM
+                Expanded(
+                  flex: 5,
                     child: Hero(
                       tag: widget.item.imgUrl,
                       child: Container(
