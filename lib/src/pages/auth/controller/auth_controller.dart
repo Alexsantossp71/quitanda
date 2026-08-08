@@ -14,23 +14,13 @@ class AuthController extends GetxController {
 
   UserModel user = UserModel();
 
-//  @override
-  // onInit() {
-  //  super.onInit();
-  // validateToken();
-  // }
+  @override
+  void onInit() {
+    super.onInit();
+    validateToken();
+  }
 
   Future<void> validateToken() async {
-    Future<void> signOut() async {
-      // zerar user
-      user = UserModel();
-      // remover tokem localmente
-      await utilsServices.removeLocalData(key: StorageKeys.token);
-      // ir para signin
-      Get.offAllNamed(PagesRoutes.singInRoute);
-    }
-
-    //RECUPERA TOKEN SALVO
     String? token = await utilsServices.getLocalData(key: StorageKeys.token);
 
     if (token == null) {
@@ -39,24 +29,20 @@ class AuthController extends GetxController {
     } else {
       AuthResult result = await authRepository.validateToken(token);
 
-      result.when(success: (user) {
-        //print(user);
-        this.user = user;
-        saveTokenAndProceedToBase();
-      }, error: (message) {
-        signOut();
-        //print(message);
-      });
+      result.when(
+        success: (user) {
+          this.user = user;
+          saveTokenAndProceedToBase();
+        },
+        error: (message) {
+          signOut();
+        },
+      );
     }
   }
 
-  //authRepository.validateToken(token);
-
   void saveTokenAndProceedToBase() {
-    // salvar o token
     utilsServices.saveLocalData(key: StorageKeys.token, data: user.token!);
-
-    // ir para base
     Get.offAllNamed(PagesRoutes.baseRoute);
   }
 
@@ -70,20 +56,14 @@ class AuthController extends GetxController {
         saveTokenAndProceedToBase();
       },
       error: (message) {
-        utilsServices.showToast(
-          message: message,
-          isError: true,
-        );
+        utilsServices.showToast(message: message, isError: true);
       },
     );
   }
 
   Future<void> signOut() async {
-    // zerar user
     user = UserModel();
-    // remover tokem localmente
     await utilsServices.removeLocalData(key: StorageKeys.token);
-    // ir para signin
     Get.offAllNamed(PagesRoutes.singInRoute);
   }
 
@@ -97,17 +77,15 @@ class AuthController extends GetxController {
         await authRepository.signIn(email: email, password: password);
     isLoading.value = false;
 
-    result.when(success: (user) {
-      //print(user);
-      this.user = user;
-      saveTokenAndProceedToBase();
-    }, error: (message) {
-      utilsServices.showToast(
-        message: message,
-        isError: true,
-      );
-      //print(message);
-    });
+    result.when(
+      success: (user) {
+        this.user = user;
+        saveTokenAndProceedToBase();
+      },
+      error: (message) {
+        utilsServices.showToast(message: message, isError: true);
+      },
+    );
   }
 
   Future<void> resetPassword(String email) async {
