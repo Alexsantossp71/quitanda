@@ -1,3 +1,4 @@
+import 'package:greengrocery/src/config/responsive_layout.dart';
 import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:add_to_cart_animation/add_to_cart_icon.dart';
 import 'package:flutter/material.dart';
@@ -207,7 +208,7 @@ class _HomeTabState extends State<HomeTab> {
                           physics: const BouncingScrollPhysics(),
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
+                            crossAxisCount: ResponsiveLayout.gridColumns(context),
                             mainAxisSpacing: 10,
                             crossAxisSpacing: 10,
                             childAspectRatio: 9 / 11.5,
@@ -230,7 +231,7 @@ class _HomeTabState extends State<HomeTab> {
                     : GridView.count(
                         padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                         physics: const BouncingScrollPhysics(),
-                        crossAxisCount: 2,
+                        crossAxisCount: ResponsiveLayout.gridColumns(context),
                         mainAxisSpacing: 10,
                         crossAxisSpacing: 10,
                         childAspectRatio: 9 / 11.5,
@@ -246,6 +247,7 @@ class _HomeTabState extends State<HomeTab> {
               );
             })
           ],
+          ),
         ),
       ),
     );
