@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:greengrocery/src/config/responsive_layout.dart';
 import 'package:greengrocery/src/pages/base/controller/navigation_controller.dart';
 import 'package:greengrocery/src/pages/cart/view/cart_tab.dart';
 import 'package:greengrocery/src/pages/home/view/home_tab.dart';
@@ -47,6 +48,8 @@ class _BaseScreenState extends State<BaseScreen> {
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white.withAlpha(60),
         backgroundColor: Colors.green.shade700,
+        selectedFontSize: 12,
+        unselectedFontSize: 10,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),
