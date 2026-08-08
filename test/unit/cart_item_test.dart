@@ -44,14 +44,16 @@ void main() {
       expect(zero.totalPrice(), 0.0);
     });
 
-    test('serializa para JSON corretamente', () {
+    test('serializa para JSON com chave product', () {
       final json = cartItem.toJson();
       expect(json['id'], 'cart-1');
       expect(json['quantity'], 3);
+      // item é serializado como 'product'
       expect(json['product'], isNotNull);
+      expect(json['product']['title'], 'Uva Thompson');
     });
 
-    test('desserializa de JSON corretamente', () {
+    test('desserializa de JSON com chave product', () {
       final json = cartItem.toJson();
       final restored = CartItemModel.fromJson(json);
       expect(restored.id, cartItem.id);
