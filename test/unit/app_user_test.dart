@@ -27,19 +27,21 @@ void main() {
       expect(user.token, 'test-token');
     });
 
-    test('serializa para JSON corretamente', () {
+    test('serializa para JSON com chave fullname', () {
       final json = user.toJson();
       expect(json['id'], 'test-id');
       expect(json['email'], 'test@email.com');
-      expect(json['name'], 'João da Silva');
+      // name é serializado como 'fullname' no JSON
+      expect(json['fullname'], 'João da Silva');
+      expect(json['phone'], '11 99999-1234');
     });
 
-    test('desserializa de JSON corretamente', () {
+    test('desserializa de JSON com chave fullname', () {
       final json = user.toJson();
       final restored = UserModel.fromJson(json);
       expect(restored.id, user.id);
       expect(restored.email, user.email);
-      expect(restored.name, user.name);
+      expect(restored.name, 'João da Silva');
     });
 
     test('toString contém dados relevantes', () {
