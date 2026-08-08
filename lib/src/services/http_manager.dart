@@ -9,20 +9,35 @@ abstract class HttpMethodos {
 }
 
 class HttpManager {
+  final String _restApiKey;
+  final String _appId;
+
+  HttpManager({
+    String? restApiKey,
+    String? appId,
+  })  : _restApiKey = restApiKey ?? const String.fromEnvironment(
+          'PARSE_REST_API_KEY',
+          defaultValue: '',
+        ),
+        _appId = appId ?? const String.fromEnvironment(
+          'PARSE_APP_ID',
+          defaultValue: '',
+        );
+
   Future<Map> restRequest({
     required String url,
     required String method,
     Map? headers,
     Map? body,
   }) async {
-    // Headers da requisiçao
-
     final defaultHeaders = headers?.cast<String, String>() ?? {}
       ..addAll({
         'content-type': 'application/json; charset=utf-8',
         'accept': 'application/json',
-        'X-Parse-REST-API-Key': 'rFBKU8tk0m5ZlKES2CGieOaoYz6TgKxVMv8jRIsN',
-        'X-Parse-Application-Id': 'g1Oui3JqxnY4S1ykpQWHwEKGOe0dRYCPvPF4iykc',
+        if (_restApiKey.isNotEmpty)
+          'X-Parse-REST-API-Key': _restApiKey,
+        if (_appId.isNotEmpty)
+          'X-Parse-Application-Id': _appId,
       });
 
     Dio dio = Dio();
@@ -31,11 +46,10 @@ class HttpManager {
         url,
         options: Options(
           headers: defaultHeaders,
-          method: 'post',
+          method: method,
         ),
         data: body,
       );
-
       return response.data;
     } on DioException catch (error) {
       return error.response?.data ?? {};

@@ -14,24 +14,16 @@ class AuthController extends GetxController {
 
   UserModel user = UserModel();
 
-//  @override
-  // onInit() {
-  //  super.onInit();
-  // validateToken();
-  // }
+  @override
+  void onInit() {
+    super.onInit();
+    validateToken();
+  }
 
   Future<void> validateToken() async {
-    Future<void> signOut() async {
-      // zerar user
-      user = UserModel();
-      // remover tokem localmente
-      await utilsServices.removeLocalData(key: StorageKeys.token);
-      // ir para signin
-      Get.offAllNamed(PagesRoutes.singInRoute);
-    }
-
-    //RECUPERA TOKEN SALVO
-    String? token = await utilsServices.getLocalData(key: StorageKeys.token);
+    // RECUPERA TOKEN SALVO
+    String? token =
+        await utilsServices.getLocalData(key: StorageKeys.token);
 
     if (token == null) {
       Get.offAllNamed(PagesRoutes.singInRoute);
@@ -39,25 +31,28 @@ class AuthController extends GetxController {
     } else {
       AuthResult result = await authRepository.validateToken(token);
 
-      result.when(success: (user) {
-        //print(user);
-        this.user = user;
-        saveTokenAndProceedToBase();
-      }, error: (message) {
-        signOut();
-        //print(message);
-      });
+      result.when(
+        success: (user) {
+          this.user = user;
+          saveTokenAndProceedToBase();
+        },
+        error: (message) {
+          signOut();
+        },
+      );
     }
   }
 
-  //authRepository.validateToken(token);
-
   void saveTokenAndProceedToBase() {
-    // salvar o token
-    utilsServices.saveLocalData(key: StorageKeys.token, data: user.token!);
-
-    // ir para base
+    utilsServices.saveLocalData(
+        key: StorageKeys.token, data: user.token!);
     Get.offAllNamed(PagesRoutes.baseRoute);
+  }
+
+  Future<void> signOut() async {
+    user = UserModel();
+    await utilsServices.removeLocalData(key: StorageKeys.token);
+    Get.offAllNamed(PagesRoutes.singInRoute);
   }
 
   Future<void> signUp() async {
@@ -78,15 +73,6 @@ class AuthController extends GetxController {
     );
   }
 
-  Future<void> signOut() async {
-    // zerar user
-    user = UserModel();
-    // remover tokem localmente
-    await utilsServices.removeLocalData(key: StorageKeys.token);
-    // ir para signin
-    Get.offAllNamed(PagesRoutes.singInRoute);
-  }
-
   Future<void> signIn({
     required String email,
     required String password,
@@ -97,17 +83,18 @@ class AuthController extends GetxController {
         await authRepository.signIn(email: email, password: password);
     isLoading.value = false;
 
-    result.when(success: (user) {
-      //print(user);
-      this.user = user;
-      saveTokenAndProceedToBase();
-    }, error: (message) {
-      utilsServices.showToast(
-        message: message,
-        isError: true,
-      );
-      //print(message);
-    });
+    result.when(
+      success: (user) {
+        this.user = user;
+        saveTokenAndProceedToBase();
+      },
+      error: (message) {
+        utilsServices.showToast(
+          message: message,
+          isError: true,
+        );
+      },
+    );
   }
 
   Future<void> resetPassword(String email) async {
